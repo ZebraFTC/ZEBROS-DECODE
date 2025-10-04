@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 
 @TeleOp
-public class nevaanTeleOp extends LinearOpMode {
+public class greengiant extends LinearOpMode {
     //defining motor variables
     public DcMotor FrontLeft;
     public DcMotor FrontRight;
