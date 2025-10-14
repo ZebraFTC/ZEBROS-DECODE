@@ -40,13 +40,16 @@ public class greengiant extends LinearOpMode {
             FrontRight.setPower(drive-turn+strafe);
             BackLeft.setPower(drive+turn+strafe);
             BackRight.setPower(drive-turn-strafe);
+
             if (gamepad2.a) {
                 Flap.setPosition(0.3);
             } else  {
                 Flap.setPosition(0);
             }
+
             Intake.setPower(gamepad2.right_trigger-gamepad2.left_trigger);
             Transfer.setPower(gamepad2.right_trigger-gamepad2.left_trigger);
+
             if (gamepad2.y) {
                 Shooter.setPower(0.9);
             }
