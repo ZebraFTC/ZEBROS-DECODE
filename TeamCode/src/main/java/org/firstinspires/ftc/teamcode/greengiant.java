@@ -44,7 +44,7 @@ public class greengiant extends LinearOpMode {
             if (gamepad2.a) {
                 Flap.setPosition(0.3);
             } else  {
-                Flap.setPosition(0);
+                Flap.setPosition(0.05);
             }
 
             Intake.setPower(gamepad2.right_trigger-gamepad2.left_trigger);
@@ -54,7 +54,7 @@ public class greengiant extends LinearOpMode {
                 Shooter.setPower(0.9);
             }
             else if (gamepad2.b) {
-                Shooter.setPower(-0.1);
+                Shooter.setPower(-0.5);
             }
             else if (gamepad2.x) {
                 Shooter.setPower(0);
