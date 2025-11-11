@@ -36,32 +36,32 @@ public class TestAuto extends LinearOpMode {
         backLeft.setDirection(DcMotorSimple.Direction.REVERSE);
 
         waitForStart();
-//        timer.reset();
-//        while (opModeIsActive() && timer.seconds() < 1.5) {
-//            frontLeft.setPower(-0.5);
-//            frontRight.setPower(-0.5);
-//            backLeft.setPower(-0.5);
-//            backRight.setPower(-0.5);
-//        }
-//        frontLeft.setPower(0);
-//        frontRight.setPower(0);
-//        backLeft.setPower(0);
-//        backRight.setPower(0);
+        timer.reset();
+        while (opModeIsActive() && timer.seconds() < 1.5) {
+            frontLeft.setPower(-0.5);
+            frontRight.setPower(-0.5);
+            backLeft.setPower(-0.5);
+            backRight.setPower(-0.5);
+        }
+        frontLeft.setPower(0);
+        frontRight.setPower(0);
+        backLeft.setPower(0);
+        backRight.setPower(0);
 
-        shootOneBall();
-        shootOneBall();
-        shootOneBall();
+        shootOneBall(0.5);
+        shootOneBall(0.5);
+        shootOneBall(0.7);
 
     }
 
-    private void shootOneBall() {
+    private void shootOneBall(double transSpeed) {
         timer.reset();
         while (opModeIsActive() && timer.seconds() < 1.0) {
-            Shooter.setPower(0.9);
+            Shooter.setPower(0.85);
         }
         timer.reset();
         while (opModeIsActive() && timer.seconds() < 1.0) {
-            Shooter.setPower(0.9);
+            Shooter.setPower(0.85);
             Flap.setPosition(0.3);
         }
         timer.reset();
@@ -72,8 +72,8 @@ public class TestAuto extends LinearOpMode {
         timer.reset();
         while (opModeIsActive() && timer.seconds() < 1.5) {
             Shooter.setPower(0);
-            Intake.setPower(-0.67);
-            Transfer.setPower(-0.67);
+            Intake.setPower(-transSpeed);
+            Transfer.setPower(-transSpeed);
         }
         Intake.setPower(0);
         Transfer.setPower(0);
