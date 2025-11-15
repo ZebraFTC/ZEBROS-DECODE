@@ -40,28 +40,35 @@ public class TestAuto extends LinearOpMode {
         waitForStart();
 
 
-        drive(-0.5, -0.5, -0.5, -0.5, 1.5, false);
+        drive(-0.5, -0.5, -0.5, -0.5, 1.3, false);
 
-        shootOneBall();
-        shootOneBall();
-        shootOneBall();
-        drive(-0.5, 0.5, -0.5, 0.5, 0.5, false);
-        drive(0.5, 0.5, 0.5, 0.5, 0.6, false );
-        drive(0.5, -0.5, 0.5, -0.5, 0.3, false);
-        drive(0.5, 0.5, 0.5, 0.5, 0.5, true );
-        drive(0.5, 0.5, 0.5, 0.5, 0.5, false );
-        drive(0.5, -0.5, -0.5, 0.5, 0.5, false );
+        shootOneBall(0.5);
+        shootOneBall(0.7);
+        shootOneBall(-1);
+        drive(-0.5, 0.5, -0.5, 0.5, 0.28, false);
+        drive(-0.5, 0.5, 0.5, -0.5, 0.65, false );
+        drive(0.5, 0.5, 0.5, 0.5, 2.3, true ); // intake first time
+        drive(-0.5, -0.5, -0.5, -0.5, 1.6, false);
+        drive(0.5, -0.5, 0.5, -0.5, 0.28, false); // turn for shooter second time
+        drive(0.5, 0.5, 0.5, 0.5, 0.3, false);
+
+        shootOneBall(0.5);
+        shootOneBall(0.7);
+        shootOneBall(-1);
+
+        //drive(-0.5, -0.5, -0.5, -0.5, 0.5, false );
+        //drive(0.5, -0.5, -0.5, 0.5, 0.5, false );
 
     }
 
-    private void shootOneBall() {
+    private void shootOneBall(double transSpeed) {
         timer.reset();
         while (opModeIsActive() && timer.seconds() < 1.0) {
-            Shooter.setPower(0.78);
+            Shooter.setPower(0.8);
         }
         timer.reset();
         while (opModeIsActive() && timer.seconds() < 1.0) {
-            Shooter.setPower(0.78);
+            Shooter.setPower(0.8);
             Flap.setPosition(0.3);
         }
         timer.reset();
@@ -72,15 +79,11 @@ public class TestAuto extends LinearOpMode {
         timer.reset();
         while (opModeIsActive() && timer.seconds() < 1.5) {
             Shooter.setPower(0);
-            Intake.setPower(-0.67);
-            Transfer.setPower(-0.67);
+            Intake.setPower(-transSpeed);
+            Transfer.setPower(-transSpeed);
         }
         Intake.setPower(0);
         Transfer.setPower(0);
-
-
-
-
 
     }
 
@@ -92,9 +95,9 @@ public class TestAuto extends LinearOpMode {
             frontRight.setPower(frontRightPower);
             backLeft.setPower(backLeftPower);
             backRight.setPower(backRightPower);
-            if (intakeAndTransfer) {              // If set tossee4- true it runs the intake and the transfer
-                Intake.setPower(-0.67);
-                Transfer.setPower(-0.67);
+            if (intakeAndTransfer) {              // If set toss4- true it runs the intake and the transfer
+                Intake.setPower(-0.75);
+                Transfer.setPower(-0.75);
             }
 
         }

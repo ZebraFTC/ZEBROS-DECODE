@@ -51,7 +51,7 @@ public class greengiant extends LinearOpMode {
             Transfer.setPower(gamepad2.right_trigger-gamepad2.left_trigger);
 
             if (gamepad2.y) {
-                Shooter.setPower(0.9);
+                Shooter.setPower(0.78);
             }
             else if (gamepad2.b) {
                 Shooter.setPower(-0.5);
