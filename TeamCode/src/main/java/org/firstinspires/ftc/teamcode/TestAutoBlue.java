@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 @Autonomous
-public class TestAutoRed extends LinearOpMode {
+public class TestAutoBlue extends LinearOpMode {
     private DcMotor frontLeft;
     private DcMotor frontRight;
     private DcMotor backLeft;
@@ -45,23 +45,22 @@ public class TestAutoRed extends LinearOpMode {
         shootOneBall(0.5);
         shootOneBall(0.7);
         shootOneBall(-1);
-        drive(0.5, -0.5, 0.5, -0.5, 0.28, false);
-        drive(0.5, -0.5, -0.5, 0.5, 0.65, false );
+        drive(-0.5, 0.5, -0.5, 0.5, 0.28, false);
+        drive(-0.5, 0.5, 0.5, -0.5, 0.65, false );
         drive(0.5, 0.5, 0.5, 0.5, 2.3, true ); // intake first time
         drive(-0.5, -0.5, -0.5, -0.5, 1.6, false);
-        drive(-0.5, 0.5, -0.5, 0.5, 0.28, false); // turn for shooter second time
+        drive(0.5, -0.5, 0.5, -0.5, 0.28, false); // turn for shooter second time
         drive(0.5, 0.5, 0.5, 0.5, 0.3, false);
 
         shootOneBall(0.5);
         shootOneBall(0.7);
         shootOneBall(-1);
-
-        drive(0.5, -0.5, 0.5, -0.5, 0.28, false);
-        drive(0.5, -0.5, -0.5, 0.5, 2.5, false );
+        drive(-0.5, 0.5, -0.5, 0.5, 0.28, false);
+        drive(-0.5, 0.5, 0.5, -0.5, 2.5, false );
         drive(0.5, 0.5, 0.5, 0.5, 2.3, true ); // intake first time
         drive(-0.5, -0.5, -0.5, -0.5, 1.6, false);
-        drive(-0.5, 0.5, 0.5, -0.5, 2, false );
-        drive(-0.5, 0.5, -0.5, 0.5, 0.28, false); // turn for shooter second time
+        drive(0.5, -0.5, -0.5, 0.5, 2, false );
+        drive(0.5, -0.5, 0.5, -0.5, 0.28, false); // turn for shooter second time
         drive(0.5, 0.5, 0.5, 0.5, 0.3, false);
 
         shootOneBall(0.5);
