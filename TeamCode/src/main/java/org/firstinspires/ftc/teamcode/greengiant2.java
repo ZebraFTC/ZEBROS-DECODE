@@ -62,7 +62,7 @@ public class greengiant2 extends LinearOpMode {
             FrontLeft.setPower(powerFL * (drive+turn-strafe));
             FrontRight.setPower(powerFR * (drive-turn+strafe));
             BackLeft.setPower(powerBL * (drive+turn+strafe));
-            BackRight.setPower(powerBR * (drive-turn-strafe));
+            BackRight.setPower(powerBR * (drive-turn-strafe));  
 
             if (gamepad2.a) {
                 Flap.setPosition(0.3);
