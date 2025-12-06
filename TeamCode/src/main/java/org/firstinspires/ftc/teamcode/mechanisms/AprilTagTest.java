@@ -58,7 +58,6 @@ public class AprilTagTest {
             telemetry.addLine(String.format("\n==== (ID %d) Unknown", detectedId.id));
             telemetry.addLine(String.format("Center %6.0f %6.0f   (pixels)", detectedId.center.x, detectedId.center.y));
         }
-        }
     }
 
     public AprilTagDetection getTagBySpecificId(int id) {
@@ -78,4 +77,4 @@ public class AprilTagTest {
             visionPortal.close();
         }
     }
-    }
+}
