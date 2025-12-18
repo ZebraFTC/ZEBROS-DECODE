@@ -39,21 +39,22 @@ public class BackAuto extends LinearOpMode {
 
         waitForStart();
 
-
-        drive(-0.5, 0.5, 0.5, -0.5, 0.6, false);
         drive(0.5, 0.5, 0.5, 0.5, 0.3, false);
-
+        drive(-0.5, 0.5, -0.5, 0.5, 0.07, false);
+        shootOneBall(0.5);
+        shootOneBall(0.7);
+        shootOneBall(-1);
 
     }
 
     private void shootOneBall(double transSpeed) {
         timer.reset();
         while (opModeIsActive() && timer.seconds() < 1.0) {
-            Shooter.setPower(0.8);
+            Shooter.setPower(1);
         }
         timer.reset();
         while (opModeIsActive() && timer.seconds() < 1.0) {
-            Shooter.setPower(0.8);
+            Shooter.setPower(1);
             Flap.setPosition(0.3);
         }
         timer.reset();
