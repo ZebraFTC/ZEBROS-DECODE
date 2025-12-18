@@ -15,7 +15,9 @@ import org.firstinspires.ftc.vision.apriltag.AprilTagProcessor;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AprilTagTest {
+
+
+public class AprilTagWebcam {
     private AprilTagProcessor aprilTagProcessor;
     private VisionPortal visionPortal;
     private List<AprilTagDetection> detectedTags = new ArrayList<>();
@@ -58,7 +60,11 @@ public class AprilTagTest {
             telemetry.addLine(String.format("\n==== (ID %d) Unknown", detectedId.id));
             telemetry.addLine(String.format("Center %6.0f %6.0f   (pixels)", detectedId.center.x, detectedId.center.y));
         }
-        }
+
+    }
+
+    public double getYaw(AprilTagDetection detectedId) {
+        return detectedId.ftcPose.yaw;
     }
 
     public AprilTagDetection getTagBySpecificId(int id) {
@@ -78,4 +84,4 @@ public class AprilTagTest {
             visionPortal.close();
         }
     }
-    }
+}
