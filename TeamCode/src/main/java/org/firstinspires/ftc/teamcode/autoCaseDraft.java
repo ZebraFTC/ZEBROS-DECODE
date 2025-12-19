@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 @Autonomous
-public class TestAutoBlue extends LinearOpMode {
+public class autoCaseDraft extends LinearOpMode {
     private DcMotor frontLeft;
     private DcMotor frontRight;
     private DcMotor backLeft;
@@ -18,7 +18,16 @@ public class TestAutoBlue extends LinearOpMode {
     private DcMotor Shooter;
     private Servo Flap;
 
-    private static ElapsedTime timer = new ElapsedTime();
+    private ElapsedTime timer = new ElapsedTime();
+
+    public enum AutoCase {
+        taxi_auto,
+        three_ball,
+        six_ball
+    }
+
+    AutoCase selectedCase = AutoCase.six_ball;
+
 
     @Override
     public void runOpMode() {
@@ -35,11 +44,54 @@ public class TestAutoBlue extends LinearOpMode {
         frontLeft.setDirection(DcMotorSimple.Direction.REVERSE);
         backLeft.setDirection(DcMotorSimple.Direction.REVERSE);
 
+        telemetry.addLine("Use dpad to select auto");
+        while (!isStarted() && !isStopRequested()) {
+            if (gamepad1.dpad_up) {
+                selectedCase = AutoCase.taxi_auto;
+            } else if (gamepad1.dpad_left) {
+                selectedCase = AutoCase.three_ball;
+            } else if (gamepad1.dpad_right) {
+                selectedCase = AutoCase.six_ball;
+            } else {
+                selectedCase = AutoCase.six_ball;
+            }
+        }
 
+        telemetry.addData("Selected Auto", selectedCase);
+        telemetry.update();
 
         waitForStart();
 
+        switch (selectedCase) {
+            case taxi_auto:
+                runTaxi();
+                break;
+            case three_ball:
+                runThreeBall();
+                break;
+            case six_ball:
+                runSixBall();
+                break;
+        }
 
+    }
+
+    public void runTaxi() {
+        drive(-0.5, -0.5, -0.5, -0.5, 1.3, false);
+
+        drive(-0.5, 0.5, -0.5, 0.5, 0.28, false);
+        drive(-0.5, 0.5, 0.5, -0.5, 0.65, false );
+    }
+
+    public void runThreeBall() {
+        drive(-0.5, -0.5, -0.5, -0.5, 1.3, false);
+
+        shootOneBall(0.5);
+        shootOneBall(1);
+        shootOneBall(-1);
+    }
+
+    public void runSixBall() {
         drive(-0.5, -0.5, -0.5, -0.5, 1.3, false);
 
         shootOneBall(0.5);
@@ -69,7 +121,6 @@ public class TestAutoBlue extends LinearOpMode {
 
         //drive(-0.5, -0.5, -0.5, -0.5, 0.5, false );
         //drive(0.5, -0.5, -0.5, 0.5, 0.5, false );
-
     }
 
     private void shootOneBall(double transSpeed) {
@@ -110,6 +161,7 @@ public class TestAutoBlue extends LinearOpMode {
                 Intake.setPower(-0.75);
                 Transfer.setPower(-0.75);
             }
+            idle();
 
         }
         frontLeft.setPower(0);
