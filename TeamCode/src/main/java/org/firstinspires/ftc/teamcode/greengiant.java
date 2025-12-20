@@ -52,7 +52,7 @@ public class greengiant extends LinearOpMode {
             Intake.setPower(gamepad2.right_trigger-gamepad2.left_trigger);
             Transfer.setPower(gamepad2.right_trigger-gamepad2.left_trigger);
 
-            if (gamepad2.right_bumper) {
+            if (gamepad1.right_bumper) {
                 shootOneBall();
             }
             else if (gamepad2.y) {

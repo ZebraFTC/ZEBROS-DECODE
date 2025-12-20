@@ -48,11 +48,11 @@ public class autoCaseDraft extends LinearOpMode {
         while (!isStarted() && !isStopRequested()) {
             if (gamepad1.dpad_up) {
                 selectedCase = AutoCase.taxi_auto;
-            } else if (gamepad1.dpad_left) {
+            }
+            if (gamepad1.dpad_left) {
                 selectedCase = AutoCase.three_ball;
-            } else if (gamepad1.dpad_right) {
-                selectedCase = AutoCase.six_ball;
-            } else {
+            }
+            if (gamepad1.dpad_right) {
                 selectedCase = AutoCase.six_ball;
             }
         }
@@ -80,7 +80,7 @@ public class autoCaseDraft extends LinearOpMode {
         drive(-0.5, -0.5, -0.5, -0.5, 1.3, false);
 
         drive(-0.5, 0.5, -0.5, 0.5, 0.28, false);
-        drive(-0.5, 0.5, 0.5, -0.5, 0.65, false );
+        drive(0.5, -0.5, -0.5, 0.5, 0.65, false );
     }
 
     public void runThreeBall() {
@@ -98,7 +98,7 @@ public class autoCaseDraft extends LinearOpMode {
         shootOneBall(1);
         shootOneBall(-1);
         drive(-0.5, 0.5, -0.5, 0.5, 0.28, false);
-        drive(-0.5, 0.5, 0.5, -0.5, 0.65, false );
+        drive(0.5, -0.5, -0.5, 0.5, 0.65, false );
         drive(0.5, 0.5, 0.5, 0.5, 2.3, true ); // intake first time
         drive(-0.5, -0.5, -0.5, -0.5, 1.6, false);
         drive(0.5, -0.5, 0.5, -0.5, 0.28, false); // turn for shooter second time
