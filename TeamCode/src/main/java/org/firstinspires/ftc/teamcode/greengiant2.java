@@ -49,7 +49,6 @@ public class greengiant2 extends LinearOpMode {
                 Flap.setPosition(0);
             }
 
-
             Intake.setPower(gamepad2.right_trigger-gamepad2.left_trigger);
             Transfer.setPower(gamepad2.right_trigger-gamepad2.left_trigger);
             if (gamepad2.y) {

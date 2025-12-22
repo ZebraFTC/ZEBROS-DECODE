@@ -33,9 +33,9 @@ public class greengiant extends LinearOpMode {
         waitForStart(); //runs everything above, then waits for init to finish code
         while (opModeIsActive()) {
             //set gamepads and controls
-            double drive = -0.5*gamepad1.left_stick_y;
-            double strafe = -0.5*gamepad1.left_stick_x;
-            double turn = 0.5*gamepad1.right_stick_x;
+            double drive = -0.67*gamepad1.left_stick_y;
+            double strafe = -0.6*gamepad1.left_stick_x;
+            double turn = 0.6*gamepad1.right_stick_x;
             FrontLeft.setPower(drive+turn-strafe);
             FrontRight.setPower(drive-turn+strafe);
             BackLeft.setPower(drive+turn+strafe);
@@ -48,7 +48,7 @@ public class greengiant extends LinearOpMode {
             Intake.setPower(gamepad2.right_trigger-gamepad2.left_trigger);
             Transfer.setPower(gamepad2.right_trigger-gamepad2.left_trigger);
             if (gamepad2.y) {
-                Shooter.setPower(0.9);
+                Shooter.setPower(1);
             }
             else if (gamepad2.b) {
                 Shooter.setPower(-0.1);
