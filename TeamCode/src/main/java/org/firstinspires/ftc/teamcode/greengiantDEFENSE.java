@@ -1,4 +1,4 @@
-/**package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 
 @TeleOp
-public class greengiant2 extends LinearOpMode {
+public class greengiantDEFENSE extends LinearOpMode {
     //defining motor variables
     public DcMotor FrontLeft;
     public DcMotor FrontRight;
@@ -33,9 +33,9 @@ public class greengiant2 extends LinearOpMode {
         waitForStart(); //runs everything above, then waits for init to finish code
         while (opModeIsActive()) {
             //set gamepads and controls
-            double drive = -0.5*gamepad1.left_stick_y;
-            double strafe = -0.5*gamepad1.left_stick_x;
-            double turn = 0.5*gamepad1.right_stick_x;
+            double drive = -0.8*gamepad1.left_stick_y;
+            double strafe = -0.8*gamepad1.left_stick_x;
+            double turn = 0.8*gamepad1.right_stick_x;
             FrontLeft.setPower(drive+turn-strafe);
             FrontRight.setPower(drive-turn+strafe);
             BackLeft.setPower(drive+turn+strafe);
@@ -51,51 +51,17 @@ public class greengiant2 extends LinearOpMode {
             Transfer.setPower(gamepad2.right_trigger-gamepad2.left_trigger);
 
             if (gamepad2.y) {
-                //Shooter.setPower(0.78);
-                shootOneBall(0.7);
-
+                Shooter.setPower(1);
             }
             else if (gamepad2.b) {
                 Shooter.setPower(-0.5);
-                shootOneBall(0.7);
             }
             else if (gamepad2.x) {
-               Shooter.setPower(0);
-              
+                Shooter.setPower(0);
             }
 
 
-
-
         }
-
-
-
     }
-    private void shootOneBall(double transSpeed) {
-        timer.reset();
-        while (opModeIsActive() && timer.seconds() < 1.0) {
-            Shooter.setPower(0.8);
-        }
-        timer.reset();
-        while (opModeIsActive() && timer.seconds() < 1.0) {
-            Shooter.setPower(0.8);
-            Flap.setPosition(0.3);
-        }
-        timer.reset();
-        while (opModeIsActive() && timer.seconds() < 1.5) {
-            Shooter.setPower(0);
-            Flap.setPosition(0.05);
-        }
-        timer.reset();
-        while (opModeIsActive() && timer.seconds() < 1.5) {
-            Shooter.setPower(0);
-            Intake.setPower(-transSpeed);
-            Transfer.setPower(-transSpeed);
-        }
-        Intake.setPower(0);
-        Transfer.setPower(0);
 
-    }
 }
-**/
