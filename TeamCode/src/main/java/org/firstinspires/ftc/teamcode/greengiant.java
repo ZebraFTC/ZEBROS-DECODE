@@ -49,8 +49,8 @@ public class greengiant extends LinearOpMode {
                 Flap.setPosition(0.05);
             }
 
-            Intake.setPower(gamepad2.right_trigger-gamepad2.left_trigger);
-            Transfer.setPower(gamepad2.right_trigger-gamepad2.left_trigger);
+            Intake.setPower(gamepad2.left_trigger-gamepad2.right_trigger);
+            Transfer.setPower(gamepad2.left_trigger-gamepad2.right_trigger);
 
             if (gamepad2.right_bumper) {
                 shootOneBall();
@@ -58,11 +58,10 @@ public class greengiant extends LinearOpMode {
             else if (gamepad2.y) {
                 Shooter.setPower(0.78);
             }
-            else if (gamepad2.b) {
-                Shooter.setPower(-0.5);
-            }
             else if (gamepad2.x) {
                 Shooter.setPower(0);
+            } else if (gamepad2.left_bumper) {
+                Shooter.setPower(-1);
             }
         }
 
