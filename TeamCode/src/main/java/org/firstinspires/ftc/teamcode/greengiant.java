@@ -5,6 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.util.ElapsedTime;
 
 @TeleOp
 public class greengiant extends LinearOpMode {
@@ -17,6 +18,7 @@ public class greengiant extends LinearOpMode {
     public DcMotor Transfer;
     public DcMotor Shooter;
     public Servo Flap;
+    private static ElapsedTime timer = new ElapsedTime();
     @Override
     public void runOpMode() throws InterruptedException {
         //hardware maps motors, tells the algorithm where they're plugged in
@@ -47,21 +49,47 @@ public class greengiant extends LinearOpMode {
                 Flap.setPosition(0.05);
             }
 
-            Intake.setPower(gamepad2.right_trigger-gamepad2.left_trigger);
-            Transfer.setPower(gamepad2.right_trigger-gamepad2.left_trigger);
+            Intake.setPower(gamepad2.left_trigger-gamepad2.right_trigger);
+            Transfer.setPower(gamepad2.left_trigger-gamepad2.right_trigger);
 
-            if (gamepad2.y) {
-                Shooter.setPower(0.78);
+            if (gamepad2.right_bumper) {
+                shootOneBall();
             }
-            else if (gamepad2.b) {
-                Shooter.setPower(-0.5);
+            else if (gamepad2.y) {
+                Shooter.setPower(0.78);
             }
             else if (gamepad2.x) {
                 Shooter.setPower(0);
+            } else if (gamepad2.left_bumper) {
+                Shooter.setPower(-1);
             }
-
-
         }
+
+    }
+
+    private void shootOneBall() {
+        timer.reset();
+        while (opModeIsActive() && timer.seconds() < 1.0) {
+            Shooter.setPower(0.8);
+        }
+        timer.reset();
+        while (opModeIsActive() && timer.seconds() < 1.0) {
+            Shooter.setPower(0.8);
+            Flap.setPosition(0.3);
+        }
+        timer.reset();
+        while (opModeIsActive() && timer.seconds() < 1.5) {
+            Shooter.setPower(0);
+            Flap.setPosition(0.05);
+        }
+        timer.reset();
+        while (opModeIsActive() && timer.seconds() < 1.5) {
+            Shooter.setPower(0);
+            Intake.setPower(-0.78);
+            Transfer.setPower(-0.78);
+        }
+        Intake.setPower(0);
+        Transfer.setPower(0);
     }
 
 }
