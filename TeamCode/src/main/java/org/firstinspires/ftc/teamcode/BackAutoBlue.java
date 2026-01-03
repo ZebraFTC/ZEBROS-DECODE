@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 @Autonomous
-public class FarAuto2 extends LinearOpMode {
+public class BackAutoBlue extends LinearOpMode {
     private DcMotor frontLeft;
     private DcMotor frontRight;
     private DcMotor backLeft;
@@ -36,35 +36,25 @@ public class FarAuto2 extends LinearOpMode {
         backLeft.setDirection(DcMotorSimple.Direction.REVERSE);
 
 
+
         waitForStart();
 
-
-        drive(0.5, 0.5, 0.5, 0.5, 1, false);
-
-        drive(-0.5, 0.5, -0.5, 0.5, 0.5, false);
-        drive(0.5, 0.5, 0.5, 0.5, 0.65, true);
-        drive(0.5, -0.5, -0.5, -0.5, 0.65, false); // intake first time
-        drive(0.5, -0.5, 0.5, -0.5, 0.5, false);
-        drive(0.5, 0.5, 0.5, 0.5, 1, false); // turn for shooter second time
-        drive(-0.5, 0.5, -0.5, 0.5, 0.3, false);
-
+        drive(0.5, 0.5, 0.5, 0.5, 0.3, false);
+        drive(-0.5, 0.5, -0.5, 0.5, 0.07, false);
         shootOneBall(0.5);
         shootOneBall(0.7);
         shootOneBall(-1);
-
-        //drive(-0.5, -0.5, -0.5, -0.5, 0.5, false );
-        //drive(0.5, -0.5, -0.5, 0.5, 0.5, false );
 
     }
 
     private void shootOneBall(double transSpeed) {
         timer.reset();
         while (opModeIsActive() && timer.seconds() < 1.0) {
-            Shooter.setPower(0.8);
+            Shooter.setPower(1);
         }
         timer.reset();
         while (opModeIsActive() && timer.seconds() < 1.0) {
-            Shooter.setPower(0.8);
+            Shooter.setPower(1);
             Flap.setPosition(0.3);
         }
         timer.reset();
@@ -94,7 +84,7 @@ public class FarAuto2 extends LinearOpMode {
             if (intakeAndTransfer) {              // If set toss4- true it runs the intake and the transfer
                 Intake.setPower(-0.75);
                 Transfer.setPower(-0.75);
-            } //
+            }
 
         }
         frontLeft.setPower(0);
@@ -104,5 +94,4 @@ public class FarAuto2 extends LinearOpMode {
         Intake.setPower(0);
         Transfer.setPower(0);
     }
-
 }

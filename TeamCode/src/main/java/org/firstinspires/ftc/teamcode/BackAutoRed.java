@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 @Autonomous
-public class BackAuto extends LinearOpMode {
+public class BackAutoRed extends LinearOpMode {
     private DcMotor frontLeft;
     private DcMotor frontRight;
     private DcMotor backLeft;
@@ -36,11 +36,10 @@ public class BackAuto extends LinearOpMode {
         backLeft.setDirection(DcMotorSimple.Direction.REVERSE);
 
 
-
         waitForStart();
 
         drive(0.5, 0.5, 0.5, 0.5, 0.3, false);
-        drive(-0.5, 0.5, -0.5, 0.5, 0.07, false);
+        drive(0.5, -0.5, 0.5, -0.5, 0.07, false);
         shootOneBall(0.5);
         shootOneBall(0.7);
         shootOneBall(-1);
@@ -84,7 +83,7 @@ public class BackAuto extends LinearOpMode {
             if (intakeAndTransfer) {              // If set toss4- true it runs the intake and the transfer
                 Intake.setPower(-0.75);
                 Transfer.setPower(-0.75);
-            }
+            } //
 
         }
         frontLeft.setPower(0);
@@ -94,4 +93,5 @@ public class BackAuto extends LinearOpMode {
         Intake.setPower(0);
         Transfer.setPower(0);
     }
+
 }
