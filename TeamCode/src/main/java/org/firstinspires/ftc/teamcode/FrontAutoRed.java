@@ -97,16 +97,16 @@ public class FrontAutoRed extends LinearOpMode {
     }
 
     public void runSixBall() {
-        drive(-0.5, -0.5, -0.5, -0.5, 1.3, false);
+        drive(-0.5, -0.5, -0.5, -0.5, 1.15, false);
 
         shootOneBall(0.5);
         shootOneBall(1);
         shootOneBall(-1);
-        drive(-0.5, 0.5, -0.5, 0.5, 0.28, false);
-        drive(0.5, -0.5, -0.5, 0.5, 0.65, false );
+        drive(0.5, -0.5, 0.5, -0.5, 0.24, false);
+        drive(0.5, -0.5, -0.5, 0.5, 0.70, false );
         drive(0.5, 0.5, 0.5, 0.5, 2.3, true ); // intake first time
         drive(-0.5, -0.5, -0.5, -0.5, 1.6, false);
-        drive(0.5, -0.5, 0.5, -0.5, 0.28, false); // turn for shooter second time
+        drive(-0.5, 0.5, -0.5, 0.5, 0.28, false); // turn for shooter second time
         drive(0.5, 0.5, 0.5, 0.5, 0.3, false);
 
         shootOneBall(0.5);
@@ -114,14 +114,14 @@ public class FrontAutoRed extends LinearOpMode {
         shootOneBall(-1);
 
 
-        drive(0.5, -0.5, 0.5, -0.5, 0.28, false);
+        drive(0.5, -0.5, 0.5, -0.5, 0.229, false);
         drive(0.5, -0.5, -0.5, 0.5, 1, false);
     }
 
     private void shootOneBall(double transSpeed) {
         timer.reset();
         while (opModeIsActive() && timer.seconds() < 1.0) {
-            Shooter.setPower(0.8);
+            Shooter.setPower(0.7);
         }
         timer.reset();
         while (opModeIsActive() && timer.seconds() < 1.0) {

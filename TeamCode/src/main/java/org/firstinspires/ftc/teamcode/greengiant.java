@@ -60,7 +60,8 @@ public class greengiant extends LinearOpMode {
             }
             else if (gamepad2.x) {
                 Shooter.setPower(0);
-            } else if (gamepad2.left_bumper) {
+            }
+            else if (gamepad2.left_bumper) {
                 Shooter.setPower(-1);
             }
         }
@@ -68,25 +69,48 @@ public class greengiant extends LinearOpMode {
     }
 
     private void shootOneBall() {
+        double drive = -0.5*gamepad1.left_stick_y;
+        double strafe = -0.5*gamepad1.left_stick_x;
+        double turn = 0.5*gamepad1.right_stick_x;
+        FrontLeft.setPower(drive+turn-strafe);
+        FrontRight.setPower(drive-turn+strafe);
+        BackLeft.setPower(drive+turn+strafe);
+        BackRight.setPower(drive-turn-strafe);
         timer.reset();
         while (opModeIsActive() && timer.seconds() < 1.0) {
             Shooter.setPower(0.8);
+            FrontLeft.setPower(drive+turn-strafe);
+            FrontRight.setPower(drive-turn+strafe);
+            BackLeft.setPower(drive+turn+strafe);
+            BackRight.setPower(drive-turn-strafe);
         }
         timer.reset();
         while (opModeIsActive() && timer.seconds() < 1.0) {
             Shooter.setPower(0.8);
             Flap.setPosition(0.3);
+            FrontLeft.setPower(drive+turn-strafe);
+            FrontRight.setPower(drive-turn+strafe);
+            BackLeft.setPower(drive+turn+strafe);
+            BackRight.setPower(drive-turn-strafe);
         }
         timer.reset();
         while (opModeIsActive() && timer.seconds() < 1.5) {
             Shooter.setPower(0);
             Flap.setPosition(0.05);
+            FrontLeft.setPower(drive+turn-strafe);
+            FrontRight.setPower(drive-turn+strafe);
+            BackLeft.setPower(drive+turn+strafe);
+            BackRight.setPower(drive-turn-strafe);
         }
         timer.reset();
         while (opModeIsActive() && timer.seconds() < 1.5) {
             Shooter.setPower(0);
             Intake.setPower(-0.78);
             Transfer.setPower(-0.78);
+            FrontLeft.setPower(drive+turn-strafe);
+            FrontRight.setPower(drive-turn+strafe);
+            BackLeft.setPower(drive+turn+strafe);
+            BackRight.setPower(drive-turn-strafe);
         }
         Intake.setPower(0);
         Transfer.setPower(0);

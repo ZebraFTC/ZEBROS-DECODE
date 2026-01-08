@@ -65,7 +65,7 @@ public class greengiant3 extends LinearOpMode {
     }
     AprilTagDetection id23 = aprilTagWebcam.getTagBySpecificId(23);
     public void repositionBot() {
-        if (aprilTagWebcam != null) {
+        if (aprilTagWebcam.getYaw(id23) != 0.0) {
             if (aprilTagWebcam.getYaw(id23) > 0.0) {
                 drive(0.5, -0.5, 0.5, -0.5, 3, false);
             } else if (aprilTagWebcam.getYaw(id23) < 0.0) {
@@ -74,5 +74,5 @@ public class greengiant3 extends LinearOpMode {
                 drive(0,0,0,0,0.1,false);
             }
         }
-    }
+    } 
 }

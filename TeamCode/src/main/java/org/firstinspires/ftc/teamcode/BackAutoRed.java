@@ -38,11 +38,7 @@ public class BackAutoRed extends LinearOpMode {
 
         waitForStart();
 
-        drive(0.5, 0.5, 0.5, 0.5, 0.3, false);
-        drive(0.5, -0.5, 0.5, -0.5, 0.07, false);
-        shootOneBall(0.5);
-        shootOneBall(0.7);
-        shootOneBall(-1);
+        drive(0.5, 0.5, 0.5, 0.5, 0.4, false);
 
     }
 

@@ -45,7 +45,9 @@ public class FrontAutoBlue extends LinearOpMode {
         backLeft.setDirection(DcMotorSimple.Direction.REVERSE);
 
         telemetry.addLine("Use dpad to select auto");
+
         while (!isStarted() && !isStopRequested()) {
+
             if (gamepad1.dpad_up) {
                 selectedCase = AutoCase.taxi_auto;
             }
@@ -56,7 +58,6 @@ public class FrontAutoBlue extends LinearOpMode {
                 selectedCase = AutoCase.six_ball;
             }
         }
-
         telemetry.addData("Selected Auto", selectedCase);
         telemetry.update();
 
@@ -77,36 +78,36 @@ public class FrontAutoBlue extends LinearOpMode {
     }
 
     public void runTaxi() {
-        drive(-0.5, -0.5, -0.5, -0.5, 1.3, false);
+        drive(-0.5, -0.5, -0.5, -0.5, 1.15, false);
 
-        drive(-0.5, 0.5, -0.5, 0.5, 0.28, false);
+        drive(-0.5, 0.5, -0.5, 0.5, 0.24, false);
         drive(-0.5, 0.5, 0.5, -0.5, 1, false);
         drive(0.5, -0.5, -0.5, 0.5, 1, false);
     }
 
     public void runThreeBall() {
-        drive(-0.5, -0.5, -0.5, -0.5, 1.3, false);
+        drive(-0.5, -0.5, -0.5, -0.5, 1.15, false);
 
         shootOneBall(0.5);
         shootOneBall(1);
         shootOneBall(-1);
 
-        drive(-0.5, 0.5, -0.5, 0.5, 0.28, false);
+        drive(-0.5, 0.5, -0.5, 0.5, 0.24, false);
         drive(-0.5, 0.5, 0.5, -0.5, 1, false);
         drive(0.5, -0.5, -0.5, 0.5, 1, false);
     }
 
     public void runSixBall() {
-        drive(-0.5, -0.5, -0.5, -0.5, 1.3, false);
+        drive(-0.5, -0.5, -0.5, -0.5, 1.15, false);
 
         shootOneBall(0.5);
         shootOneBall(1);
         shootOneBall(-1);
-        drive(-0.5, 0.5, -0.5, 0.5, 0.28, false);
-        drive(0.5, -0.5, -0.5, 0.5, 0.65, false );
+        drive(-0.5, 0.5, -0.5, 0.5, 0.22, false);
+        drive(-0.5, 0.5, 0.5, -0.5, 0.70, false );
         drive(0.5, 0.5, 0.5, 0.5, 2.3, true ); // intake first time
         drive(-0.5, -0.5, -0.5, -0.5, 1.6, false);
-        drive(0.5, -0.5, 0.5, -0.5, 0.28, false); // turn for shooter second time
+        drive(0.5, -0.5, 0.5, -0.5, 0.24, false); // turn for shooter second time
         drive(0.5, 0.5, 0.5, 0.5, 0.3, false);
 
         shootOneBall(0.5);
@@ -121,7 +122,7 @@ public class FrontAutoBlue extends LinearOpMode {
     private void shootOneBall(double transSpeed) {
         timer.reset();
         while (opModeIsActive() && timer.seconds() < 1.0) {
-            Shooter.setPower(0.8);
+            Shooter.setPower(0.72);
         }
         timer.reset();
         while (opModeIsActive() && timer.seconds() < 1.0) {

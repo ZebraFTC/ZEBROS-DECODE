@@ -44,7 +44,7 @@ public class greengiantDEFENSE extends LinearOpMode {
             BackRight.setPower(drive-turn-strafe);
 
             if (gamepad2.a) {
-                Flap.setPosition(0.3);
+                Flap.setPosition(0.5);
             } else  {
                 Flap.setPosition(0.05);
             }
@@ -52,11 +52,13 @@ public class greengiantDEFENSE extends LinearOpMode {
             Intake.setPower(gamepad2.left_trigger-gamepad2.right_trigger);
             Transfer.setPower(gamepad2.left_trigger-gamepad2.right_trigger);
 
-            if (gamepad2.right_bumper) {
+            /**if (gamepad2.right_bumper) {
                 shootOneBall();
             }
-            else if (gamepad2.y) {
-                Shooter.setPower(0.78);
+            else**/
+
+            if (gamepad2.y) {
+                Shooter.setPower(1);
             }
             else if (gamepad2.x) {
                 Shooter.setPower(0);
@@ -68,6 +70,15 @@ public class greengiantDEFENSE extends LinearOpMode {
     }
 
     private void shootOneBall() {
+
+        double drive = -0.8*gamepad1.left_stick_y;
+        double strafe = -0.8*gamepad1.left_stick_x;
+        double turn = 0.8*gamepad1.right_stick_x;
+        FrontLeft.setPower(drive+turn-strafe);
+        FrontRight.setPower(drive-turn+strafe);
+        BackLeft.setPower(drive+turn+strafe);
+        BackRight.setPower(drive-turn-strafe);
+
         timer.reset();
         while (opModeIsActive() && timer.seconds() < 1.0) {
             Shooter.setPower(0.8);
@@ -75,7 +86,7 @@ public class greengiantDEFENSE extends LinearOpMode {
         timer.reset();
         while (opModeIsActive() && timer.seconds() < 1.0) {
             Shooter.setPower(0.8);
-            Flap.setPosition(0.3);
+            Flap.setPosition(0.42);
         }
         timer.reset();
         while (opModeIsActive() && timer.seconds() < 1.5) {
