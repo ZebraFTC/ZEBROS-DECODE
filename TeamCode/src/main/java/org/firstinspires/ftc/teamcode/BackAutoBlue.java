@@ -43,31 +43,30 @@ public class BackAutoBlue extends LinearOpMode {
 
     }
 
-    private void shootOneBall(double transSpeed) {
+    private void nudgeBall() {
         timer.reset();
-        while (opModeIsActive() && timer.seconds() < 1.0) {
-            Shooter.setPower(1);
+        while (opModeIsActive() && timer.seconds() < 0.1) {
+            Intake.setPower(-0.4);
+            Transfer.setPower(-0.4);
         }
         timer.reset();
-        while (opModeIsActive() && timer.seconds() < 1.0) {
-            Shooter.setPower(1);
-            Flap.setPosition(0.3);
+        while (opModeIsActive() && timer.seconds() < 0.3) {
+            Intake.setPower(0);
+            Transfer.setPower(0);
         }
-        timer.reset();
-        while (opModeIsActive() && timer.seconds() < 1.5) {
-            Shooter.setPower(0);
-            Flap.setPosition(0.05);
-        }
-        timer.reset();
-        while (opModeIsActive() && timer.seconds() < 1.5) {
-            Shooter.setPower(0);
-            Intake.setPower(-transSpeed);
-            Transfer.setPower(-transSpeed);
-        }
-        Intake.setPower(0);
-        Transfer.setPower(0);
-
     }
+
+    private void shootThreeBall() {
+        timer.reset();
+        while (opModeIsActive() && timer.seconds() < 1.0) {
+            Shooter.setPower(0.6);
+        }
+        nudgeBall();
+        nudgeBall();
+        nudgeBall();
+        Shooter.setPower(0);
+    }
+
 
 
     public void drive(double frontLeftPower, double frontRightPower, double backLeftPower, double backRightPower, double time, boolean intakeAndTransfer) {

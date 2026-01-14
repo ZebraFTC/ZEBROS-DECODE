@@ -63,7 +63,7 @@ public class greengiant3 extends LinearOpMode {
         Intake.setPower(0);
         Transfer.setPower(0);
     }
-    AprilTagDetection id23 = aprilTagWebcam.getTagBySpecificId(23);
+    AprilTagDetection id23 = aprilTagWebcam.getTagById(23);
     public void repositionBot() {
         if (aprilTagWebcam.getYaw(id23) != 0.0) {
             if (aprilTagWebcam.getYaw(id23) > 0.0) {

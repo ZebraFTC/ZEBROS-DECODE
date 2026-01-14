@@ -67,7 +67,7 @@ public class AprilTagWebcam {
         return detectedId.ftcPose.yaw;
     }
 
-    public AprilTagDetection getTagBySpecificId(int id) {
+    public AprilTagDetection getTagById(int id) {
         for (AprilTagDetection detection : detectedTags) {
             if (detection.id == id) {
                 return detection;

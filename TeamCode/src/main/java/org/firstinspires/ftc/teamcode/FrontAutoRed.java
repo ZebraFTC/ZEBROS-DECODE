@@ -87,9 +87,7 @@ public class FrontAutoRed extends LinearOpMode {
     public void runThreeBall() {
         drive(-0.5, -0.5, -0.5, -0.5, 1.3, false);
 
-        shootOneBall(0.5);
-        shootOneBall(1);
-        shootOneBall(-1);
+        shootThreeBall();
 
         drive(0.5, -0.5, 0.5, -0.5, 0.28, false);
         drive(0.5, -0.5, -0.5, 0.5, 1, false);
@@ -99,9 +97,8 @@ public class FrontAutoRed extends LinearOpMode {
     public void runSixBall() {
         drive(-0.5, -0.5, -0.5, -0.5, 1.15, false);
 
-        shootOneBall(0.5);
-        shootOneBall(1);
-        shootOneBall(-1);
+        shootThreeBall();
+
         drive(0.5, -0.5, 0.5, -0.5, 0.24, false);
         drive(0.5, -0.5, -0.5, 0.5, 0.70, false );
         drive(0.5, 0.5, 0.5, 0.5, 2.3, true ); // intake first time
@@ -109,40 +106,37 @@ public class FrontAutoRed extends LinearOpMode {
         drive(-0.5, 0.5, -0.5, 0.5, 0.28, false); // turn for shooter second time
         drive(0.5, 0.5, 0.5, 0.5, 0.3, false);
 
-        shootOneBall(0.5);
-        shootOneBall(0.7);
-        shootOneBall(-1);
+        shootThreeBall();
 
 
         drive(0.5, -0.5, 0.5, -0.5, 0.229, false);
         drive(0.5, -0.5, -0.5, 0.5, 1, false);
     }
 
-    private void shootOneBall(double transSpeed) {
+    private void nudgeBall() {
         timer.reset();
-        while (opModeIsActive() && timer.seconds() < 1.0) {
-            Shooter.setPower(0.7);
+        while (opModeIsActive() && timer.seconds() < 0.1) {
+            Intake.setPower(-0.4);
+            Transfer.setPower(-0.4);
         }
         timer.reset();
-        while (opModeIsActive() && timer.seconds() < 1.0) {
-            Shooter.setPower(0.8);
-            Flap.setPosition(0.3);
+        while (opModeIsActive() && timer.seconds() < 0.3) {
+            Intake.setPower(0);
+            Transfer.setPower(0);
         }
-        timer.reset();
-        while (opModeIsActive() && timer.seconds() < 1.5) {
-            Shooter.setPower(0);
-            Flap.setPosition(0.05);
-        }
-        timer.reset();
-        while (opModeIsActive() && timer.seconds() < 1.5) {
-            Shooter.setPower(0);
-            Intake.setPower(-transSpeed);
-            Transfer.setPower(-transSpeed);
-        }
-        Intake.setPower(0);
-        Transfer.setPower(0);
-
     }
+
+    private void shootThreeBall() {
+        timer.reset();
+        while (opModeIsActive() && timer.seconds() < 1.0) {
+            Shooter.setPower(0.6);
+        }
+        nudgeBall();
+        nudgeBall();
+        nudgeBall();
+        Shooter.setPower(0);
+    }
+
 
 
     public void drive(double frontLeftPower, double frontRightPower, double backLeftPower, double backRightPower, double time, boolean intakeAndTransfer) {
