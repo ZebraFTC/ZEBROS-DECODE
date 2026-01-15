@@ -23,7 +23,8 @@ public class FrontAutoBlue extends LinearOpMode {
     public enum AutoCase {
         taxi_auto,
         three_ball,
-        six_ball
+        six_ball,
+        nine_ball
     }
 
     AutoCase selectedCase = AutoCase.six_ball;
@@ -57,6 +58,9 @@ public class FrontAutoBlue extends LinearOpMode {
             if (gamepad1.dpad_right) {
                 selectedCase = AutoCase.six_ball;
             }
+            if (gamepad1.dpad_down) {
+                selectedCase = AutoCase.nine_ball;
+            }
         }
         telemetry.addData("Selected Auto", selectedCase);
         telemetry.update();
@@ -72,6 +76,9 @@ public class FrontAutoBlue extends LinearOpMode {
                 break;
             case six_ball:
                 runSixBall();
+                break;
+            case nine_ball:
+                runNineBall();
                 break;
         }
 
@@ -99,27 +106,57 @@ public class FrontAutoBlue extends LinearOpMode {
         Shooter.setPower(0.7);
         drive(-0.5, -0.5, -0.5, -0.5, 1.15, false);
 
-        while (opModeIsActive() && timer.seconds() < 1) {
-            telemetry.addLine("Processing");
+        while (opModeIsActive() && timer.seconds() < 2) {
+            telemetry.addLine("Shooter turning on...");
         }
-        nudgeBall(0.2);
-        nudgeBall(0.2);
-        nudgeBall(0.2);
+        nudgeBall(0.25);
+        nudgeBall(0.5);
+        nudgeBall(0.4);
         Shooter.setPower(-0.5);
 
-        drive(-0.5, 0.5, -0.5, 0.5, 0.22, false);
-        drive(-0.5, 0.5, 0.5, -0.5, 0.70, false );
-        drive(0.5, 0.5, 0.5, 0.5, 2.3, true ); // intake first time
-        drive(-0.5, -0.5, -0.5, -0.5, 1.6, false);
-        drive(0.5, -0.5, 0.5, -0.5, 0.24, false); // turn for shooter second time
+        drive(-0.5, 0.5, -0.5, 0.5, 0.267  , false);
+        drive(-0.5, 0.5, 0.5, -0.5, 0.795, false );
+        drive(0.5,0.5,0.5,0.5,2,true);
+        drive(-0.5, -0.5, -0.5, -0.5, 1.4, false);
+        drive(0.5, -0.5, 0.5, -0.5, 0.276, false); // turn for shooter second time
         drive(0.5, 0.5, 0.5, 0.5, 0.3, false);
 
         shootThreeBall();
 
         drive(-0.5, 0.5, -0.5, 0.5, 0.28, false);
-        drive(-0.5, 0.5, 0.5, -0.5, 1, false);
+        drive(-0.5, 0.5, 0.5, -0.5, 1.5, false);
     }
+    public void runNineBall() {
+        Shooter.setPower(0.7);
+        drive(-0.5, -0.5, -0.5, -0.5, 1.15, false);
 
+        while (opModeIsActive() && timer.seconds() < 2) {
+            telemetry.addLine("Shooter turning on...");
+        }
+        nudgeBall(0.25);
+        nudgeBall(0.5);
+        nudgeBall(0.4);
+        Shooter.setPower(-0.5);
+
+        drive(-0.5, 0.5, -0.5, 0.5, 0.27  , false);
+        drive(-0.5, 0.5, 0.5, -0.5, 0.795, false );
+        drive(0.5,0.5,0.5,0.5,2,true);
+        drive(-0.5, -0.5, -0.5, -0.5, 1.4, false);
+        drive(0.5, -0.5, 0.5, -0.5, 0.276, false); // turn for shooter second time
+        drive(0.5, 0.5, 0.5, 0.5, 0.3, false);
+
+        shootThreeBall();
+
+        drive(-0.5, 0.5, -0.5, 0.5, 0.3, false);
+        drive(-0.5, 0.5, 0.5, -0.5, 1.6, false);
+        drive(0.5, 0.5, 0.5, 0.5, 1.8, true);
+        drive(-0.5, -0.5, -0.5, -0.5, 1.5, false);
+        drive(0.5, -0.5, -0.5, 0.5, 1.2, false );
+        drive(0.5, -0.5, 0.5, -0.5, 0.3, false); // turn for shooter second time
+        drive(0.5, 0.5, 0.5, 0.5, 0.2, false);
+
+        shootThreeBall();
+    }
     private void nudgeBall(double intakeTime) {
         timer.reset();
         while (opModeIsActive() && timer.seconds() < intakeTime) {
@@ -139,11 +176,11 @@ public class FrontAutoBlue extends LinearOpMode {
             Shooter.setPower(0.7);
         }
 
-        nudgeBall(0.3);
-        nudgeBall(0.3);
-        nudgeBall(0.3);
-        Shooter.setPower(-0.2);
-        Shooter.setPower(0);
+        nudgeBall(0.25);
+        nudgeBall(0.5);
+        nudgeBall(0.4);
+        Shooter.setPower(-0.5);
+
     }
 
 
@@ -155,8 +192,8 @@ public class FrontAutoBlue extends LinearOpMode {
             backLeft.setPower(backLeftPower);
             backRight.setPower(backRightPower);
             if (intakeAndTransfer) {              // If set toss4- true it runs the intake and the transfer
-                Intake.setPower(-0.8);
-                Transfer.setPower(-0.8);
+                Intake.setPower(-1);
+                Transfer.setPower(-1);
             }
             idle();
 
