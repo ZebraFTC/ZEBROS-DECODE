@@ -27,7 +27,7 @@ public class FrontAutoBlue extends LinearOpMode {
         nine_ball
     }
 
-    AutoCase selectedCase = AutoCase.six_ball;
+    AutoCase selectedCase = AutoCase.nine_ball;
 
 
     @Override
@@ -87,9 +87,8 @@ public class FrontAutoBlue extends LinearOpMode {
     public void runTaxi() {
         drive(-0.5, -0.5, -0.5, -0.5, 1.15, false);
 
-        drive(-0.5, 0.5, -0.5, 0.5, 0.24, false);
-        drive(-0.5, 0.5, 0.5, -0.5, 1, false);
-        drive(0.5, -0.5, -0.5, 0.5, 1, false);
+        drive(-0.5, 0.5, -0.5, 0.5, 0.267, false);
+        drive(-0.5, 0.5, 0.5, -0.5, 0.8, false);
     }
 
     public void runThreeBall() {
@@ -97,9 +96,8 @@ public class FrontAutoBlue extends LinearOpMode {
 
         shootThreeBall();
 
-        drive(-0.5, 0.5, -0.5, 0.5, 0.24, false);
-        drive(-0.5, 0.5, 0.5, -0.5, 1, false);
-        drive(0.5, -0.5, -0.5, 0.5, 1, false);
+        drive(-0.5, 0.5, -0.5, 0.5, 0.267, false); // leave zone
+        drive(-0.5, 0.5, 0.5, -0.5, 0.795, false);
     }
 
     public void runSixBall() {
@@ -111,11 +109,11 @@ public class FrontAutoBlue extends LinearOpMode {
         }
         nudgeBall(0.25);
         nudgeBall(0.5);
-        nudgeBall(0.4);
+        nudgeBall(0.7);
         Shooter.setPower(-0.5);
 
         drive(-0.5, 0.5, -0.5, 0.5, 0.267  , false);
-        drive(-0.5, 0.5, 0.5, -0.5, 0.795, false );
+        drive(-0.5, 0.5, 0.5, -0.5, 0.8, false );
         drive(0.5,0.5,0.5,0.5,2,true);
         drive(-0.5, -0.5, -0.5, -0.5, 1.4, false);
         drive(0.5, -0.5, 0.5, -0.5, 0.276, false); // turn for shooter second time
@@ -123,7 +121,7 @@ public class FrontAutoBlue extends LinearOpMode {
 
         shootThreeBall();
 
-        drive(-0.5, 0.5, -0.5, 0.5, 0.28, false);
+        drive(-0.5, 0.5, -0.5, 0.5, 0.28, false); // leave zone
         drive(-0.5, 0.5, 0.5, -0.5, 1.5, false);
     }
     public void runNineBall() {
@@ -133,29 +131,35 @@ public class FrontAutoBlue extends LinearOpMode {
         while (opModeIsActive() && timer.seconds() < 2) {
             telemetry.addLine("Shooter turning on...");
         }
+        telemetry.update();
         nudgeBall(0.25);
-        nudgeBall(0.5);
-        nudgeBall(0.4);
+        nudgeBall(0.53);
+        nudgeBall(0.7);
         Shooter.setPower(-0.5);
 
-        drive(-0.5, 0.5, -0.5, 0.5, 0.27  , false);
-        drive(-0.5, 0.5, 0.5, -0.5, 0.795, false );
-        drive(0.5,0.5,0.5,0.5,2,true);
-        drive(-0.5, -0.5, -0.5, -0.5, 1.4, false);
-        drive(0.5, -0.5, 0.5, -0.5, 0.276, false); // turn for shooter second time
-        drive(0.5, 0.5, 0.5, 0.5, 0.3, false);
+        //our robot is racist
+
+        drive(-0.5, 0.5, -0.5, 0.5, 0.282  , false);
+        drive(-0.5, 0.5, 0.5, -0.5, 0.915, false );
+        drive(0.5,0.5,0.5,0.5,2.1,true);
+        drive(-0.5, -0.5, -0.5, -0.5, 1.5, false);
+        drive(0.5, -0.5, 0.5, -0.5, 0.4, false); // turn for shooter second time
+        drive(0.5, 0.5, 0.5, 0.5, 0.2, false);
 
         shootThreeBall();
 
         drive(-0.5, 0.5, -0.5, 0.5, 0.3, false);
-        drive(-0.5, 0.5, 0.5, -0.5, 1.6, false);
-        drive(0.5, 0.5, 0.5, 0.5, 1.8, true);
-        drive(-0.5, -0.5, -0.5, -0.5, 1.5, false);
-        drive(0.5, -0.5, -0.5, 0.5, 1.2, false );
-        drive(0.5, -0.5, 0.5, -0.5, 0.3, false); // turn for shooter second time
+        drive(-0.5, 0.5, 0.5, -0.5, 2.3, false);
+        drive(0.5, 0.5, 0.5, 0.5, 2, true);
+        drive(-0.5, -0.5, -0.5, -0.5, 1.4, false);
+        drive(0.5, -0.5, -0.5, 0.5, 1.8, false );
+        drive(0.5, -0.5, 0.5, -0.5, 0.4 , false); // turn for shooter third time
         drive(0.5, 0.5, 0.5, 0.5, 0.2, false);
 
         shootThreeBall();
+
+        drive(0.5, -0.5, 0.5, -0.5, 0.3, false); // leave zone
+        drive(0.5, 0.5, 0.5, 0.5, 0.2, false);
     }
     private void nudgeBall(double intakeTime) {
         timer.reset();
@@ -172,13 +176,15 @@ public class FrontAutoBlue extends LinearOpMode {
 
     private void shootThreeBall() {
         timer.reset();
+        Shooter.setPower(0.7);
         while (opModeIsActive() && timer.seconds() < 2) {
-            Shooter.setPower(0.7);
+            telemetry.addLine("Shooter turning on...");
         }
+        telemetry.update();
 
         nudgeBall(0.25);
         nudgeBall(0.5);
-        nudgeBall(0.4);
+        nudgeBall(0.7);
         Shooter.setPower(-0.5);
 
     }

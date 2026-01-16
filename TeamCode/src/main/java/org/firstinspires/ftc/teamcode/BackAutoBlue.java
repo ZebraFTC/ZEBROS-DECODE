@@ -39,18 +39,22 @@ public class BackAutoBlue extends LinearOpMode {
 
         waitForStart();
 
-        drive(0.5, 0.5, 0.5, 0.5, 0.4, false);
+        while (opModeIsActive() && timer.seconds() < 15) {
+            telemetry.addLine("Waiting to move");
+        }
+        telemetry.update();
 
+        drive(0.5, 0.5, 0.5, 0.5, 0.5, false);
     }
 
-    private void nudgeBall() {
+    private void nudgeBall(double intakeTime) {
         timer.reset();
-        while (opModeIsActive() && timer.seconds() < 0.1) {
-            Intake.setPower(-0.4);
-            Transfer.setPower(-0.4);
+        while (opModeIsActive() && timer.seconds() < intakeTime) {
+            Intake.setPower(-0.7);
+            Transfer.setPower(-0.7);
         }
         timer.reset();
-        while (opModeIsActive() && timer.seconds() < 0.3) {
+        while (opModeIsActive() && timer.seconds() < 1) {
             Intake.setPower(0);
             Transfer.setPower(0);
         }
@@ -58,15 +62,16 @@ public class BackAutoBlue extends LinearOpMode {
 
     private void shootThreeBall() {
         timer.reset();
-        while (opModeIsActive() && timer.seconds() < 1.0) {
-            Shooter.setPower(0.6);
+        while (opModeIsActive() && timer.seconds() < 2) {
+            Shooter.setPower(0.7);
         }
-        nudgeBall();
-        nudgeBall();
-        nudgeBall();
-        Shooter.setPower(0);
-    }
 
+        nudgeBall(0.25);
+        nudgeBall(0.5);
+        nudgeBall(0.4);
+        Shooter.setPower(-0.5);
+
+    }
 
 
     public void drive(double frontLeftPower, double frontRightPower, double backLeftPower, double backRightPower, double time, boolean intakeAndTransfer) {
