@@ -137,10 +137,8 @@ public class FrontAutoBlue extends LinearOpMode {
         nudgeBall(0.7);
         Shooter.setPower(-0.5);
 
-        //our robot is racist
-
-        drive(-0.5, 0.5, -0.5, 0.5, 0.282  , false);
-        drive(-0.5, 0.5, 0.5, -0.5, 0.915, false );
+        drive(-0.5, 0.5, -0.5, 0.5, 0.33  , false);
+        drive(-0.5, 0.5, 0.5, -0.5, 0.9, false );
         drive(0.5,0.5,0.5,0.5,2.1,true);
         drive(-0.5, -0.5, -0.5, -0.5, 1.5, false);
         drive(0.5, -0.5, 0.5, -0.5, 0.4, false); // turn for shooter second time
@@ -148,18 +146,23 @@ public class FrontAutoBlue extends LinearOpMode {
 
         shootThreeBall();
 
-        drive(-0.5, 0.5, -0.5, 0.5, 0.3, false);
-        drive(-0.5, 0.5, 0.5, -0.5, 2.3, false);
-        drive(0.5, 0.5, 0.5, 0.5, 2, true);
-        drive(-0.5, -0.5, -0.5, -0.5, 1.4, false);
+        drive(-0.5, 0.5, -0.5, 0.5, 0.35, false);
+        drive(-0.5, 0.5, 0.5, -0.5, 1.9, false);
+        drive(0.5, 0.5, 0.5, 0.5, 1.8, true);
+        drive(-0.5, -0.5, -0.5, -0.5, 1.5, false);
         drive(0.5, -0.5, -0.5, 0.5, 1.8, false );
         drive(0.5, -0.5, 0.5, -0.5, 0.4 , false); // turn for shooter third time
         drive(0.5, 0.5, 0.5, 0.5, 0.2, false);
 
-        shootThreeBall();
+        while (opModeIsActive() && timer.seconds() < 2) {
+            telemetry.addLine("Shooter turning on...");
+        }
+        telemetry.update();
+        nudgeBall(0.25);
+        nudgeBall(0.53);
 
-        drive(0.5, -0.5, 0.5, -0.5, 0.3, false); // leave zone
-        drive(0.5, 0.5, 0.5, 0.5, 0.2, false);
+        drive(-1, 1, 1, -1, 0.6, false); // leave zone
+        //drive(0.5, 0.5, 0.5, 0.5, 0.2, false);
     }
     private void nudgeBall(double intakeTime) {
         timer.reset();

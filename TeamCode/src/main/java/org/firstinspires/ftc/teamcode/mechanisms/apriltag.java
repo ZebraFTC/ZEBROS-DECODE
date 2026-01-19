@@ -10,8 +10,8 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 //import org.firstinspires.ftc.teamcode.mechanisms.AprilTagWebcam;
 import org.firstinspires.ftc.vision.apriltag.AprilTagDetection;
 
-@TeleOp(name = "Green Giant LB")
-public class lowBattery extends LinearOpMode {
+@TeleOp(name = "Green Giant")
+public class apriltag extends LinearOpMode {
     DcMotor FrontLeft, FrontRight, BackLeft, BackRight;
     DcMotor Intake, Transfer, Shooter;
     Servo Flap;
@@ -52,22 +52,20 @@ public class lowBattery extends LinearOpMode {
             }
             telemetry.update();
 
-            driverControl();
-
-            /*if (gamepad2.right_bumper) {
+            if (gamepad2.right_bumper) {
                 aprilTagDebug();
             } else {
                 driverControl();
-            }*/
+            }
 
-            /*if (gamepad2.a) {
-                nudgeBall(0.3);
-            }*/
+            if (gamepad2.a) {
+                shootThreeBall();
+            }
 
             Intake.setPower(gamepad2.left_trigger - gamepad2.right_trigger);
             Transfer.setPower(gamepad2.left_trigger - gamepad2.right_trigger);
 
-            if (gamepad2.y) Shooter.setPower(1);
+            if (gamepad2.y) Shooter.setPower(0.7);
             if (gamepad2.x) Shooter.setPower(0);
             if (gamepad2.left_bumper) Shooter.setPower(-1);
 
@@ -78,9 +76,9 @@ public class lowBattery extends LinearOpMode {
     }
 
     private void driverControl() {
-        double drive = -1 * gamepad1.left_stick_y;
-        double strafe = -1 * gamepad1.left_stick_x;
-        double turn = 0.85 * gamepad1.right_stick_x;
+        double drive = -0.85 * gamepad1.left_stick_y;
+        double strafe = -0.85 * gamepad1.left_stick_x;
+        double turn = 0.7 * gamepad1.right_stick_x;
 
         setDrivePower(drive, strafe, turn);
     }
@@ -105,8 +103,8 @@ public class lowBattery extends LinearOpMode {
     private void nudgeBall(double intakeTime) {
         timer.reset();
         while (opModeIsActive() && timer.seconds() < intakeTime) {
-            Intake.setPower(-1);
-            Transfer.setPower(-1);
+            Intake.setPower(-0.7);
+            Transfer.setPower(-0.7);
         }
         timer.reset();
         while (opModeIsActive() && timer.seconds() < 1) {
@@ -118,7 +116,7 @@ public class lowBattery extends LinearOpMode {
     private void shootThreeBall() {
         timer.reset();
         while (opModeIsActive() && timer.seconds() < 2) {
-            Shooter.setPower(0.9);
+            Shooter.setPower(0.7);
         }
 
         nudgeBall(0.25);

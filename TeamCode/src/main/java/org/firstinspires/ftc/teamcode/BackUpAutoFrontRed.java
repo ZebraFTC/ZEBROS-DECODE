@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 @Autonomous
-public class FrontAutoRed extends LinearOpMode {
+public class BackUpAutoFrontRed extends LinearOpMode {
     private DcMotor frontLeft;
     private DcMotor frontRight;
     private DcMotor backLeft;
@@ -27,7 +27,7 @@ public class FrontAutoRed extends LinearOpMode {
         nine_ball
     }
 
-    AutoCase selectedCase = AutoCase.nine_ball;
+    AutoCase selectedCase = AutoCase.six_ball;
 
 
     @Override
@@ -122,14 +122,15 @@ public class FrontAutoRed extends LinearOpMode {
         drive(0.5, -0.5, 0.5, -0.5, 0.267  , false);
         drive(0.5, -0.5, -0.5, 0.5, 0.795, false );
         drive(0.5,0.5,0.5,0.5,2,true);
-        drive(-0.5, -0.5, -0.5, -0.5, 1.4, false);
-        drive(-0.5, 0.5, -0.5, 0.5, 0.276, false); // turn for shooter second time
-        drive(0.5, 0.5, 0.5, 0.5, 0.3, false);
+        drive(-0.5, -0.5, -0.5, -0.5, 1.35, false);
+        drive(-0.5, 0.5, -0.5, 0.5, 0.3, false); // turn for shooter second time
+        drive(0.5, 0.5, 0.5, 0.5, 0.25, false);
 
         shootThreeBall();
 
         drive(0.5, -0.5, 0.5, -0.5, 0.28, false); // leave zone
-        drive(0.5, -0.5, -0.5, 0.5, 1.5, false);
+        drive(0.5, -0.5, -0.5, 0.5, 1, false);
+        drive(0.5,0.5,0.5,0.5,1,false);
     }
     public void runNineBall() {
         Shooter.setPower(0.7);
@@ -143,19 +144,19 @@ public class FrontAutoRed extends LinearOpMode {
         nudgeBall(0.4);
         Shooter.setPower(-0.5);
 
-        drive(0.5, -0.5, 0.5, -0.5, 0.33  , false);
-        drive(0.5, -0.5, -0.5, 0.5, 0.9, false );
-        drive(0.5,0.5,0.5,0.5,2.1,true);
-        drive(-0.5, -0.5, -0.5, -0.5, 1.5, false);
-        drive(-0.5, 0.5, -0.5, 0.5, 0.4, false); // turn for shooter second time
-        drive(0.5, 0.5, 0.5, 0.5, 0.2, false);
+        drive(0.5, -0.5, 0.5, -0.5, 0.267  , false);
+        drive(0.5, -0.5, -0.5, 0.5, 0.795, false );
+        drive(0.5,0.5,0.5,0.5,2,true);
+        drive(-0.5, -0.5, -0.5, -0.5, 1.35, false);
+        drive(-0.5, 0.5, -0.5, 0.5, 0.3, false); // turn for shooter second time
+        drive(0.5, 0.5, 0.5, 0.5, 0.25, false);
 
         shootThreeBall();
 
         drive(0.5, -0.5, 0.5, -0.5, 0.35, false);
         drive(0.5, -0.5, -0.5, 0.5, 1.9, false);
         drive(0.5, 0.5, 0.5, 0.5, 1.8, true);
-        drive(-0.5, -0.5, -0.5, -0.5, 1.5, false);
+        drive(-0.5, -0.5, -0.5, -0.5, 1.4, false);
         drive(-0.5, 0.5, 0.5, -0.5, 1.8, false );
         drive(-0.5, 0.5, -0.5, 0.5, 0.4, false); // turn for shooter third time
         drive(0.5, 0.5, 0.5, 0.5, 0.2, false);
