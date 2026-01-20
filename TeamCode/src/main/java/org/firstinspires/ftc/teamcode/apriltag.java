@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.mechanisms;
+package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -8,6 +8,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 //import org.firstinspires.ftc.teamcode.mechanisms.AprilTagWebcam;
+import org.firstinspires.ftc.teamcode.mechanisms.AprilTagWebcam;
 import org.firstinspires.ftc.vision.apriltag.AprilTagDetection;
 
 @TeleOp(name = "Green Giant")
@@ -36,6 +37,8 @@ public class apriltag extends LinearOpMode {
 
         FrontLeft.setDirection(DcMotorSimple.Direction.REVERSE);
         BackLeft.setDirection(DcMotorSimple.Direction.REVERSE);
+
+        Shooter.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         aprilTag.init(hardwareMap, telemetry);
 
@@ -78,7 +81,7 @@ public class apriltag extends LinearOpMode {
     private void driverControl() {
         double drive = -0.85 * gamepad1.left_stick_y;
         double strafe = -0.85 * gamepad1.left_stick_x;
-        double turn = 0.7 * gamepad1.right_stick_x;
+        double turn = 0.5 * gamepad1.right_stick_x;
 
         setDrivePower(drive, strafe, turn);
     }

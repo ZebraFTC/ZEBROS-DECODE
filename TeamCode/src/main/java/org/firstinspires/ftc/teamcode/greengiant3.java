@@ -7,72 +7,134 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+//import org.firstinspires.ftc.teamcode.mechanisms.AprilTagWebcam;
 import org.firstinspires.ftc.teamcode.mechanisms.AprilTagWebcam;
 import org.firstinspires.ftc.vision.apriltag.AprilTagDetection;
 
-@TeleOp
+@TeleOp(name = "Test April Tag Logic")
 public class greengiant3 extends LinearOpMode {
-    AprilTagWebcam aprilTagWebcam = new AprilTagWebcam();
+    DcMotor FrontLeft, FrontRight, BackLeft, BackRight;
+    DcMotor Intake, Transfer, Shooter;
+    Servo Flap;
     private static ElapsedTime timer = new ElapsedTime();
-    //defining motor variables
-    public DcMotor FrontLeft;
-    public DcMotor FrontRight;
-    public DcMotor BackLeft;
-    public DcMotor BackRight;
-    public DcMotor Intake;
-    public DcMotor Transfer;
-    public DcMotor Shooter;
-    public Servo Flap;
+
+    AprilTagWebcam aprilTag = new AprilTagWebcam();
+
+    static int TARGET_TAG_ID = 1; // CHANGE IF NEEDED
+
     @Override
-    public void runOpMode() throws InterruptedException {
-        //hardware maps motors, tells the algorithm where they're plugged in
+    public void runOpMode() {
+
         FrontLeft = hardwareMap.get(DcMotor.class, "FL");
         FrontRight = hardwareMap.get(DcMotor.class, "FR");
         BackLeft = hardwareMap.get(DcMotor.class, "BL");
         BackRight = hardwareMap.get(DcMotor.class, "BR");
-        Flap = hardwareMap.get(Servo.class, "flap");
+
         Intake = hardwareMap.get(DcMotor.class, "intake");
         Transfer = hardwareMap.get(DcMotor.class, "transfer");
         Shooter = hardwareMap.get(DcMotor.class, "shooter");
+        Flap = hardwareMap.get(Servo.class, "flap");
+
         FrontLeft.setDirection(DcMotorSimple.Direction.REVERSE);
         BackLeft.setDirection(DcMotorSimple.Direction.REVERSE);
-        waitForStart(); //runs everything above, then waits for init to finish code
+
+        Shooter.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
+        aprilTag.init(hardwareMap, telemetry);
+
+        waitForStart();
+
         while (opModeIsActive()) {
-            if (gamepad1.a) {
-                repositionBot();
+            if (gamepad1.dpad_left) {
+                TARGET_TAG_ID = 20;
+                telemetry.addLine("Blue Alliance");
             }
-        }
-    }
-    public void drive(double frontLeftPower, double frontRightPower, double backLeftPower, double backRightPower, double time, boolean intakeAndTransfer) {
-        timer.reset();
-        while (opModeIsActive() && timer.seconds() < time) {     // While the timer is running
-            FrontLeft.setPower(frontLeftPower);
-            FrontRight.setPower(frontRightPower);
-            BackLeft.setPower(backLeftPower);
-            BackRight.setPower(backRightPower);
-            if (intakeAndTransfer) {              // If set toss4- true it runs the intake and the transfer
-                Intake.setPower(-0.75);
-                Transfer.setPower(-0.75);
+            if (gamepad1.dpad_right) {
+                TARGET_TAG_ID = 24;
+                telemetry.addLine("Red Alliance");
+            }
+            telemetry.update();
+
+            if (gamepad2.right_bumper) {
+                aprilTagDebug();
+            } else {
+                driverControl();
             }
 
+            if (gamepad2.a) {
+                shootThreeBall();
+            }
+
+            Intake.setPower(gamepad2.left_trigger - gamepad2.right_trigger);
+            Transfer.setPower(gamepad2.left_trigger - gamepad2.right_trigger);
+
+            if (gamepad2.y) Shooter.setPower(0.7);
+            if (gamepad2.x) Shooter.setPower(0);
+            if (gamepad2.left_bumper) Shooter.setPower(-1);
+
         }
-        FrontLeft.setPower(0);
-        FrontRight.setPower(0);
-        BackLeft.setPower(0);
-        BackRight.setPower(0);
-        Intake.setPower(0);
-        Transfer.setPower(0);
+
+
+        aprilTag.stop();
     }
-    AprilTagDetection id23 = aprilTagWebcam.getTagById(23);
-    public void repositionBot() {
-        if (aprilTagWebcam.getYaw(id23) != 0.0) {
-            if (aprilTagWebcam.getYaw(id23) > 0.0) {
-                drive(0.5, -0.5, 0.5, -0.5, 3, false);
-            } else if (aprilTagWebcam.getYaw(id23) < 0.0) {
-                drive(-0.5, 0.5, -0.5, 0.5, 3, false);
+
+    private void driverControl() {
+        double drive = -0.85 * gamepad1.left_stick_y;
+        double strafe = -0.85 * gamepad1.left_stick_x;
+        double turn = 0.5 * gamepad1.right_stick_x;
+
+        setDrivePower(drive, strafe, turn);
+    }
+
+    private void aprilTagDebug() {
+        AprilTagDetection tag = aprilTag.getTagById(TARGET_TAG_ID);
+
+
+        while (opModeIsActive()) {
+            if (tag == null) {
+                telemetry.addLine("Searching for tag ID " + TARGET_TAG_ID);
+                idle();
             } else {
-                drive(0,0,0,0,0.1,false);
+                telemetry.addLine("TARGET TAG FOUND!");
+                telemetry.addData("Tag ID", tag.id);
+                telemetry.addData("Yaw (deg)", tag.ftcPose.yaw);
+                telemetry.addData("Range (cm)", tag.ftcPose.range);
             }
         }
-    } 
+
+
+        telemetry.update();
+    }
+    private void nudgeBall(double intakeTime) {
+        timer.reset();
+        while (opModeIsActive() && timer.seconds() < intakeTime) {
+            Intake.setPower(-0.7);
+            Transfer.setPower(-0.7);
+        }
+        timer.reset();
+        while (opModeIsActive() && timer.seconds() < 1) {
+            Intake.setPower(0);
+            Transfer.setPower(0);
+        }
+    }
+
+    private void shootThreeBall() {
+        timer.reset();
+        while (opModeIsActive() && timer.seconds() < 2) {
+            Shooter.setPower(0.7);
+        }
+
+        nudgeBall(0.25);
+        nudgeBall(0.5);
+        nudgeBall(0.4);
+        Shooter.setPower(-0.5);
+
+    }
+
+    private void setDrivePower(double drive, double strafe, double turn) {
+        FrontLeft.setPower(drive + turn - strafe);
+        FrontRight.setPower(drive - turn + strafe);
+        BackLeft.setPower(drive + turn + strafe);
+        BackRight.setPower(drive - turn - strafe);
+    }
 }
