@@ -116,17 +116,16 @@ public class EncoderTestAuto extends LinearOpMode {
 
 
     public void runTaxi() {
-        drive(-100, -100, -100, -100, false);
-//
-//
-//        drive(0.5, -0.5, 0.5, -0.5, 0.267, false);
-//        drive(0.5, -0.5, -0.5, 0.5, 0.795, false);
+        drive(-2000, -2000, -2000, -2000, false);
+
+        drive(465, -465, 465, -465, false);
+        drive(1383, -1383, -1383, 1383, false);
     }
 
 
     public void runThreeBall() {
         Shooter.setPower(0.7);
-//        drive(-0.5, -0.5, -0.5, -0.5, 1.15, false);
+        drive(-2000, -2000, -2000, -2000, false);
 
 
         while (opModeIsActive() && timer.seconds() < 2) {
@@ -137,15 +136,14 @@ public class EncoderTestAuto extends LinearOpMode {
         nudgeBall(0.4);
         Shooter.setPower(-0.5);
 
-
-//        drive(0.5, -0.5, 0.5, -0.5, 0.267, false); // leave zone
-//        drive(0.5, -0.5, -0.5, 0.5, 0.795, false);
+        drive(465, -465, 465, -465, false);
+        drive(1383, -1383, -1383, 1383, false);
     }
 
 
     public void runSixBall() {
         Shooter.setPower(0.7);
-//        drive(-0.5, -0.5, -0.5, -0.5, 1.15, false);
+        drive(-2000, -2000, -2000, -2000, false);
 
 
         while (opModeIsActive() && timer.seconds() < 2) {
@@ -156,25 +154,23 @@ public class EncoderTestAuto extends LinearOpMode {
         nudgeBall(0.4);
         Shooter.setPower(-0.5);
 
-
-//        drive(0.5, -0.5, 0.5, -0.5, 0.267  , false);
-//        drive(0.5, -0.5, -0.5, 0.5, 0.795, false );
-//        drive(0.5,0.5,0.5,0.5,2,true);
-//        drive(-0.5, -0.5, -0.5, -0.5, 1.35, false);
-//        drive(-0.5, 0.5, -0.5, 0.5, 0.3, false); // turn for shooter second time
-//        drive(0.5, 0.5, 0.5, 0.5, 0.25, false);
-
+        drive(465, -465, 465, -465, false);
+        drive(1383, -1383, -1383, 1383, false);
+        drive(3480,3480,3480,3480,true);
+        drive(-2349, -2349, -2349, -2349, false);
+        drive(-522, 522, -522, 522, false); // turn for shooter second time
+        drive(435, 435, 435, 435, false);
 
         shootThreeBall();
 
 
-//        drive(0.5, -0.5, 0.5, -0.5, 0.28, false); // leave zone
-//        drive(0.5, -0.5, -0.5, 0.5, 1, false);
-//        drive(0.5,0.5,0.5,0.5,1,false);
+        drive(487, -487, 487, -487, false); // leave zone
+        drive(1740, -1740, -1740, 1740, false);
+        drive(1740,1740,1740,1740,false);
     }
     public void runNineBall() {
         Shooter.setPower(0.7);
-//        drive(-0.5, -0.5, -0.5, -0.5, 1.15, false);
+        drive(-2000, -2000, -2000, -2000, false);
 
 
         while (opModeIsActive() && timer.seconds() < 2) {
@@ -185,25 +181,22 @@ public class EncoderTestAuto extends LinearOpMode {
         nudgeBall(0.4);
         Shooter.setPower(-0.5);
 
-
-//        drive(0.5, -0.5, 0.5, -0.5, 0.267  , false);
-//        drive(0.5, -0.5, -0.5, 0.5, 0.795, false );
-//        drive(0.5,0.5,0.5,0.5,2,true);
-//        drive(-0.5, -0.5, -0.5, -0.5, 1.35, false);
-//        drive(-0.5, 0.5, -0.5, 0.5, 0.3, false); // turn for shooter second time
-//        drive(0.5, 0.5, 0.5, 0.5, 0.25, false);
-
+        drive(465, -465, 465, -465, false);
+        drive(1383, -1383, -1383, 1383, false);
+        drive(3480,3480,3480,3480,true);
+        drive(-2349, -2349, -2349, -2349, false);
+        drive(-522, 522, -522, 522, false); // turn for shooter second time
+        drive(435, 435, 435, 435, false);
 
         shootThreeBall();
 
-
-//        drive(0.5, -0.5, 0.5, -0.5, 0.35, false);
-//        drive(0.5, -0.5, -0.5, 0.5, 1.9, false);
-//        drive(0.5, 0.5, 0.5, 0.5, 1.8, true);
-//        drive(-0.5, -0.5, -0.5, -0.5, 1.4, false);
-//        drive(-0.5, 0.5, 0.5, -0.5, 1.8, false );
-//        drive(-0.5, 0.5, -0.5, 0.5, 0.4, false); // turn for shooter third time
-//        drive(0.5, 0.5, 0.5, 0.5, 0.2, false);
+        drive(609, -609, 609, -609, false);
+        drive(3306, -3306, -3306, 3306, false);
+        drive(3132, 3132, 3132, 3132, true);
+        drive(-2436, -2436, -2436, -2436, false);
+        drive(-3132, 3132, 3132, -3132, false );
+        drive(-696, 696, -696, 696,  false); // turn for shooter third time
+        drive(348, 348, 348, 348, false);
 
 
         while (opModeIsActive() && timer.seconds() < 2) {
@@ -214,8 +207,8 @@ public class EncoderTestAuto extends LinearOpMode {
         nudgeBall(0.53);
 
 
-        //drive(-1, 1, 1, -1, 0.6, false); // leave zone
-        //drive(0.5, 0.5, 0.5, 0.5, 0.2, false);
+        drive(-1044, 1044, 1044, -1044, false); // leave zone
+        drive(348, 348, 348, 348, false);
     }
     private void nudgeBall(double intakeTime) {
         timer.reset();
@@ -246,20 +239,16 @@ public class EncoderTestAuto extends LinearOpMode {
 
     }
 
-
-
-
     public void drive(int FLTarget, int FRTarget, int BLTarget, int BRTarget, boolean intakeAndTransfer) {
+        frontLeft.setTargetPosition(frontLeft.getCurrentPosition() + FLTarget);
+        frontRight.setTargetPosition(frontRight.getCurrentPosition() + FRTarget);
+        backLeft.setTargetPosition(backLeft.getCurrentPosition() + BLTarget);
+        backRight.setTargetPosition(backRight.getCurrentPosition() + BRTarget);
 
         frontLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         frontRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         backLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         backRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-
-        frontLeft.setTargetPosition(frontLeft.getCurrentPosition() + FLTarget);
-        frontRight.setTargetPosition(frontRight.getCurrentPosition() + FRTarget);
-        backLeft.setTargetPosition(backLeft.getCurrentPosition() + BLTarget);
-        backRight.setTargetPosition(backRight.getCurrentPosition() + BRTarget);
 
         frontLeft.setPower(0.5);
         frontRight.setPower(0.5);
@@ -281,10 +270,6 @@ public class EncoderTestAuto extends LinearOpMode {
             }
         }
         stopRobot();
-//        frontLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-//        frontRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-//        backLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-//        backRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
     private void stopRobot() {
         frontLeft.setPower(0);

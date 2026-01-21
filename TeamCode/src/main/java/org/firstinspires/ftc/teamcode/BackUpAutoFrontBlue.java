@@ -1,11 +1,13 @@
 package org.firstinspires.ftc.teamcode;
 
+
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
+
 
 @Autonomous
 public class BackUpAutoFrontBlue extends LinearOpMode {
@@ -16,9 +18,12 @@ public class BackUpAutoFrontBlue extends LinearOpMode {
     private DcMotor Intake;
     private DcMotor Transfer;
     private DcMotor Shooter;
-    private Servo Flap;
-
+    private int FLP = 0;
+    private int FRP = 0;
+    private int BLP = 0;
+    private int BRP = 0;
     private ElapsedTime timer = new ElapsedTime();
+
 
     public enum AutoCase {
         taxi_auto,
@@ -27,8 +32,8 @@ public class BackUpAutoFrontBlue extends LinearOpMode {
         nine_ball
     }
 
-    AutoCase selectedCase = AutoCase.nine_ball;
 
+    AutoCase selectedCase = AutoCase.taxi_auto;
 
     @Override
     public void runOpMode() {
@@ -37,17 +42,39 @@ public class BackUpAutoFrontBlue extends LinearOpMode {
         backLeft = hardwareMap.get(DcMotor.class, "BL");
         backRight = hardwareMap.get(DcMotor.class, "BR");
 
-        Flap = hardwareMap.get(Servo.class, "flap");
+
         Intake = hardwareMap.get(DcMotor.class, "intake");
         Transfer = hardwareMap.get(DcMotor.class, "transfer");
         Shooter = hardwareMap.get(DcMotor.class, "shooter");
 
+
         frontLeft.setDirection(DcMotorSimple.Direction.REVERSE);
         backLeft.setDirection(DcMotorSimple.Direction.REVERSE);
 
+
+        frontLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        frontRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        backLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        backRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        Shooter.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
+
+        frontLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        frontRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        backLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        backRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        frontLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        frontRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        backLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        backRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+
         telemetry.addLine("Use dpad to select auto");
 
+
         while (!isStarted() && !isStopRequested()) {
+
 
             if (gamepad1.dpad_up) {
                 selectedCase = AutoCase.taxi_auto;
@@ -65,7 +92,9 @@ public class BackUpAutoFrontBlue extends LinearOpMode {
         telemetry.addData("Selected Auto", selectedCase);
         telemetry.update();
 
+
         waitForStart();
+
 
         switch (selectedCase) {
             case taxi_auto:
@@ -82,76 +111,93 @@ public class BackUpAutoFrontBlue extends LinearOpMode {
                 break;
         }
 
+
     }
+
 
     public void runTaxi() {
-        drive(-0.5, -0.5, -0.5, -0.5, 1.15, false);
+        drive(-2000, -2000, -2000, -2000, false);
 
-        drive(-0.5, 0.5, -0.5, 0.5, 0.267, false);
-        drive(-0.5, 0.5, 0.5, -0.5, 0.8, false);
+        drive(-465, 465, -465, 465, false);
+        drive(-1383, 1383, 1383, -1383, false);
     }
+
 
     public void runThreeBall() {
-        drive(-0.5, -0.5, -0.5, -0.5, 1.15, false);
+        Shooter.setPower(0.7);
+        drive(-2000, -2000, -2000, -2000, false);
 
-        shootThreeBall();
 
-        drive(-0.5, 0.5, -0.5, 0.5, 0.267, false); // leave zone
-        drive(-0.5, 0.5, 0.5, -0.5, 0.795, false);
+        while (opModeIsActive() && timer.seconds() < 2) {
+            telemetry.addLine("Shooter turning on...");
+        }
+        nudgeBall(0.25);
+        nudgeBall(0.5);
+        nudgeBall(0.4);
+        Shooter.setPower(-0.5);
+
+        drive(-465, 465, -465, 465, false);
+        drive(-1383, 1383, 1383, -1383, false);
     }
+
 
     public void runSixBall() {
         Shooter.setPower(0.7);
-        drive(-0.5, -0.5, -0.5, -0.5, 1.15, false);
+        drive(-2000, -2000, -2000, -2000, false);
+
 
         while (opModeIsActive() && timer.seconds() < 2) {
             telemetry.addLine("Shooter turning on...");
         }
         nudgeBall(0.25);
         nudgeBall(0.5);
-        nudgeBall(0.7);
+        nudgeBall(0.4);
         Shooter.setPower(-0.5);
 
-        drive(-0.5, 0.5, -0.5, 0.5, 0.33  , false);
-        drive(-0.5, 0.5, 0.5, -0.5, 0.75, false );
-        drive(0.5,0.5,0.5,0.5,2,true);
-        drive(-0.5, -0.5, -0.5, -0.5, 1.3, false);
-        drive(0.5, -0.5, 0.5, -0.5, 0.28, false); // turn for shooter second time
-        drive(0.5, 0.5, 0.5, 0.5, 0.3, false);
+        drive(-465, 465, -465, 465, false);
+        drive(-1383, 1383, 1383, -1383, false);
+        drive(3480,3480,3480,3480,true);
+        drive(-2349, -2349, -2349, -2349, false);
+        drive(522, -522, 522, -522, false); // turn for shooter second time
+        drive(435, 435, 435, 435, false);
 
         shootThreeBall();
 
-        drive(-0.5, 0.5, -0.5, 0.5, 0.28, false); // leave zone
-        drive(-0.5, 0.5, 0.5, -0.5, 1, false);
+
+        drive(-487, 487, -487, 487, false); // leave zone
+        drive(-1740, 1740, 1740, -1740, false);
+        drive(1740,1740,1740,1740,false);
     }
     public void runNineBall() {
         Shooter.setPower(0.7);
-        drive(-0.5, -0.5, -0.5, -0.5, 1.15, false);
+        drive(-2000, -2000, -2000, -2000, false);
+
 
         while (opModeIsActive() && timer.seconds() < 2) {
             telemetry.addLine("Shooter turning on...");
         }
         nudgeBall(0.25);
         nudgeBall(0.5);
-        nudgeBall(0.7);
+        nudgeBall(0.4);
         Shooter.setPower(-0.5);
 
-        drive(-0.5, 0.5, -0.5, 0.5, 0.33  , false);
-        drive(-0.5, 0.5, 0.5, -0.5, 0.75, false );
-        drive(0.5,0.5,0.5,0.5,2,true);
-        drive(-0.5, -0.5, -0.5, -0.5, 1.3, false);
-        drive(0.5, -0.5, 0.5, -0.5, 0.28, false); // turn for shooter second time
-        drive(0.5, 0.5, 0.5, 0.5, 0.3, false);
+        drive(-465, 465, -465, 465, false);
+        drive(-1383, 1383, 1383, -1383, false);
+        drive(3480,3480,3480,3480,true);
+        drive(-2349, -2349, -2349, -2349, false);
+        drive(522, -522, 522, -522, false); // turn for shooter second time
+        drive(435, 435, 435, 435, false);
 
         shootThreeBall();
 
-        drive(-0.5, 0.5, -0.5, 0.5, 0.35, false);
-        drive(-0.5, 0.5, 0.5, -0.5, 1.3, false);
-        drive(0.5, 0.5, 0.5, 0.5, 1.8, true);
-        drive(-0.5, -0.5, -0.5, -0.5, 1.4, false);
-        drive(0.5, -0.5, -0.5, 0.5, 1.8, false );
-        drive(0.5, -0.5, 0.5, -0.5, 0.4 , false); // turn for shooter third time
-        drive(0.5, 0.5, 0.5, 0.5, 0.2, false);
+        drive(-609, 609, -609, 609, false);
+        drive(-3306, 3306, 3306, -3306, false);
+        drive(3132, 3132, 3132, 3132, true);
+        drive(-2436, -2436, -2436, -2436, false);
+        drive(3132, -3132, -3132, 3132, false );
+        drive(696, -696, 696, -696,  false); // turn for shooter third time
+        drive(348, 348, 348, 348, false);
+
 
         while (opModeIsActive() && timer.seconds() < 2) {
             telemetry.addLine("Shooter turning on...");
@@ -160,8 +206,9 @@ public class BackUpAutoFrontBlue extends LinearOpMode {
         nudgeBall(0.25);
         nudgeBall(0.53);
 
-        drive(-1, 1, 1, -1, 0.6, false); // leave zone
-        //drive(0.5, 0.5, 0.5, 0.5, 0.2, false);
+
+        drive(1044, -1044, -1044, 1044, false); // leave zone
+        drive(348, 348, 348, 348, false);
     }
     private void nudgeBall(double intakeTime) {
         timer.reset();
@@ -176,36 +223,55 @@ public class BackUpAutoFrontBlue extends LinearOpMode {
         }
     }
 
+
     private void shootThreeBall() {
         timer.reset();
-        Shooter.setPower(0.7);
         while (opModeIsActive() && timer.seconds() < 2) {
-            telemetry.addLine("Shooter turning on...");
+            Shooter.setPower(0.7);
         }
-        telemetry.update();
+
 
         nudgeBall(0.25);
         nudgeBall(0.5);
-        nudgeBall(0.7);
+        nudgeBall(0.4);
         Shooter.setPower(-0.5);
+
 
     }
 
+    public void drive(int FLTarget, int FRTarget, int BLTarget, int BRTarget, boolean intakeAndTransfer) {
+        frontLeft.setTargetPosition(frontLeft.getCurrentPosition() + FLTarget);
+        frontRight.setTargetPosition(frontRight.getCurrentPosition() + FRTarget);
+        backLeft.setTargetPosition(backLeft.getCurrentPosition() + BLTarget);
+        backRight.setTargetPosition(backRight.getCurrentPosition() + BRTarget);
 
-    public void drive(double frontLeftPower, double frontRightPower, double backLeftPower, double backRightPower, double time, boolean intakeAndTransfer) {
-        timer.reset();
-        while (opModeIsActive() && timer.seconds() < time) {     // While the timer is running
-            frontLeft.setPower(frontLeftPower);
-            frontRight.setPower(frontRightPower);
-            backLeft.setPower(backLeftPower);
-            backRight.setPower(backRightPower);
-            if (intakeAndTransfer) {              // If set toss4- true it runs the intake and the transfer
+        frontLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        frontRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        backLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        backRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        frontLeft.setPower(0.5);
+        frontRight.setPower(0.5);
+        backLeft.setPower(0.5);
+        backRight.setPower(0.5);
+
+        double timeout = getRuntime() + 5.0;
+
+        while (opModeIsActive()
+                && (frontLeft.isBusy()
+                || frontRight.isBusy()
+                || backLeft.isBusy()
+                || backRight.isBusy())
+                && getRuntime() < timeout) {
+
+            if (intakeAndTransfer) {
                 Intake.setPower(-1);
                 Transfer.setPower(-1);
             }
-            idle();
-
         }
+        stopRobot();
+    }
+    private void stopRobot() {
         frontLeft.setPower(0);
         frontRight.setPower(0);
         backLeft.setPower(0);
@@ -214,3 +280,4 @@ public class BackUpAutoFrontBlue extends LinearOpMode {
         Transfer.setPower(0);
     }
 }
+

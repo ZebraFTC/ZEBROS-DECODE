@@ -55,16 +55,6 @@ public class lowBattery extends LinearOpMode {
 
             driverControl();
 
-            /*if (gamepad2.right_bumper) {
-                aprilTagDebug();
-            } else {
-                driverControl();
-            }*/
-
-            /*if (gamepad2.a) {
-                nudgeBall(0.3);
-            }*/
-
             Intake.setPower(gamepad2.left_trigger - gamepad2.right_trigger);
             Transfer.setPower(gamepad2.left_trigger - gamepad2.right_trigger);
 

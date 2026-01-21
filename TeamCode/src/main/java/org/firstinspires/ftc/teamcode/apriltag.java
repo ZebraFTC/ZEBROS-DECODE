@@ -79,8 +79,8 @@ public class apriltag extends LinearOpMode {
     }
 
     private void driverControl() {
-        double drive = -0.85 * gamepad1.left_stick_y;
-        double strafe = -0.85 * gamepad1.left_stick_x;
+        double drive = -1 * gamepad1.left_stick_y;
+        double strafe = -1 * gamepad1.left_stick_x;
         double turn = 0.5 * gamepad1.right_stick_x;
 
         setDrivePower(drive, strafe, turn);
