@@ -154,9 +154,9 @@ public class BackUpAutoFrontRed extends LinearOpMode {
         nudgeBall(0.4);
         Shooter.setPower(-0.5);
 
-        drive(465, -465, 465, -465, false);
-        drive(1383, -1383, -1383, 1383, false);
-        drive(3480,3480,3480,3480,true);
+        drive(460, -460, 460, -460, false);
+        drive(1000, -1000, -1000, 1000, false);
+        drive(2500,2500,2500,2500,true);
         drive(-2349, -2349, -2349, -2349, false);
         drive(-522, 522, -522, 522, false); // turn for shooter second time
         drive(435, 435, 435, 435, false);
@@ -182,7 +182,9 @@ public class BackUpAutoFrontRed extends LinearOpMode {
         Shooter.setPower(-0.5);
 
         drive(465, -465, 465, -465, false);
+        //decrease strafe
         drive(1383, -1383, -1383, 1383, false);
+        //decrease forward
         drive(3480,3480,3480,3480,true);
         drive(-2349, -2349, -2349, -2349, false);
         drive(-522, 522, -522, 522, false); // turn for shooter second time
@@ -250,10 +252,10 @@ public class BackUpAutoFrontRed extends LinearOpMode {
         backLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         backRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-        frontLeft.setPower(0.5);
-        frontRight.setPower(0.5);
-        backLeft.setPower(0.5);
-        backRight.setPower(0.5);
+        frontLeft.setPower(0.9);
+        frontRight.setPower(0.9);
+        backLeft.setPower(0.9);
+        backRight.setPower(0.9);
 
         double timeout = getRuntime() + 5.0;
 

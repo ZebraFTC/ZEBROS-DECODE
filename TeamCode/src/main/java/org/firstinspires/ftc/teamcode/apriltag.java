@@ -16,6 +16,7 @@ public class apriltag extends LinearOpMode {
     DcMotor FrontLeft, FrontRight, BackLeft, BackRight;
     DcMotor Intake, Transfer, Shooter;
     Servo Flap;
+    public double shooterPower;
     private static ElapsedTime timer = new ElapsedTime();
 
     AprilTagWebcam aprilTag = new AprilTagWebcam();
@@ -55,6 +56,25 @@ public class apriltag extends LinearOpMode {
             }
             telemetry.update();
 
+            if (gamepad2.dpad_up) {
+                shooterPower = 1;
+            }
+            else if (gamepad2.dpad_left) {
+                shooterPower = 0.7;
+            }
+            else if (gamepad2.dpad_right) {
+                shooterPower = 0.8;
+            }
+            else if (gamepad2.dpad_down) {
+                shooterPower = 0.9;
+            }
+            else if (gamepad2.x) {
+                shooterPower = 0;
+            }
+            Shooter.setPower(shooterPower);
+            telemetry.addData("Shooter Power: ", shooterPower);
+            telemetry.update();
+
             if (gamepad2.right_bumper) {
                 aprilTagDebug();
             } else {
@@ -68,8 +88,6 @@ public class apriltag extends LinearOpMode {
             Intake.setPower(gamepad2.left_trigger - gamepad2.right_trigger);
             Transfer.setPower(gamepad2.left_trigger - gamepad2.right_trigger);
 
-            if (gamepad2.y) Shooter.setPower(0.7);
-            if (gamepad2.x) Shooter.setPower(0);
             if (gamepad2.left_bumper) Shooter.setPower(-1);
 
         }

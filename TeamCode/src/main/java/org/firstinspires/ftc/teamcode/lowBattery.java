@@ -16,6 +16,7 @@ public class lowBattery extends LinearOpMode {
     DcMotor FrontLeft, FrontRight, BackLeft, BackRight;
     DcMotor Intake, Transfer, Shooter;
     Servo Flap;
+    public double shooterPower;
     private static ElapsedTime timer = new ElapsedTime();
 
     AprilTagWebcam aprilTag = new AprilTagWebcam();
@@ -38,6 +39,8 @@ public class lowBattery extends LinearOpMode {
         FrontLeft.setDirection(DcMotorSimple.Direction.REVERSE);
         BackLeft.setDirection(DcMotorSimple.Direction.REVERSE);
 
+        Shooter.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
         aprilTag.init(hardwareMap, telemetry);
 
         waitForStart();
@@ -51,6 +54,25 @@ public class lowBattery extends LinearOpMode {
                 TARGET_TAG_ID = 24;
                 telemetry.addLine("Red Alliance");
             }
+            telemetry.update();
+
+            if (gamepad2.dpad_up) {
+                shooterPower = 1;
+            }
+            else if (gamepad2.dpad_left) {
+                shooterPower = 0.7;
+            }
+            else if (gamepad2.dpad_right) {
+                shooterPower = 0.8;
+            }
+            else if (gamepad2.dpad_down) {
+                shooterPower = 0.9;
+            }
+            else if (gamepad2.x) {
+                shooterPower = 0;
+            }
+            Shooter.setPower(shooterPower);
+            telemetry.addData("Shooter Power: ", shooterPower);
             telemetry.update();
 
             driverControl();
