@@ -152,21 +152,21 @@ public class BackUpAutoFrontBlue extends LinearOpMode {
         nudgeBall(0.25);
         nudgeBall(0.5);
         nudgeBall(0.4);
-        Shooter.setPower(-0.5);
+        Shooter.setPower(0);
 
-        drive(-465, 465, -465, 465, false);
-        drive(-1383, 1383, 1383, -1383, false);
-        drive(3480,3480,3480,3480,true);
-        drive(-2349, -2349, -2349, -2349, false);
-        drive(522, -522, 522, -522, false); // turn for shooter second time
-        drive(435, 435, 435, 435, false);
+        drive(-350, 350, -350, 350, false);
+        drive(-700, 700, 700, -700, false);
+
+        drive(1800,1800,1800,1800,true);
+        drive(-1850, -1850, -1850, -1850, false);
+        drive(430, -430, 430, -430, false); // turn for shooter second time
+        drive(400, 400, 400, 400, false);
 
         shootThreeBall();
 
 
-        drive(-487, 487, -487, 487, false); // leave zone
-        drive(-1740, 1740, 1740, -1740, false);
-        drive(1740,1740,1740,1740,false);
+        drive(-400, 400, -400, 400, false); // leave zone
+        drive(-1500, 1500, 1500, -1500, false);
     }
     public void runNineBall() {
         Shooter.setPower(0.7);
@@ -179,36 +179,31 @@ public class BackUpAutoFrontBlue extends LinearOpMode {
         nudgeBall(0.25);
         nudgeBall(0.5);
         nudgeBall(0.4);
-        Shooter.setPower(-0.5);
+        Shooter.setPower(0);
 
-        drive(-465, 465, -465, 465, false);
-        drive(-1383, 1383, 1383, -1383, false);
-        drive(3480,3480,3480,3480,true);
-        drive(-2349, -2349, -2349, -2349, false);
-        drive(522, -522, 522, -522, false); // turn for shooter second time
-        drive(435, 435, 435, 435, false);
+        drive(-350, 350, -350, 350, false);
+        drive(-700, 700, 700, -700, false);
+
+        drive(1800,1800,1800,1800,true);
+        drive(-1850, -1850, -1850, -1850, false);
+        drive(430, -430, 430, -430, false); // turn for shooter second time
+        drive(400, 400, 400, 400, false);
 
         shootThreeBall();
 
-        drive(-609, 609, -609, 609, false);
-        drive(-3306, 3306, 3306, -3306, false);
-        drive(3132, 3132, 3132, 3132, true);
-        drive(-2436, -2436, -2436, -2436, false);
-        drive(3132, -3132, -3132, 3132, false );
-        drive(696, -696, 696, -696,  false); // turn for shooter third time
-        drive(348, 348, 348, 348, false);
+        drive(-350, 350, -350, 350, false);
+        drive(-2100, 2100, 2100, -2100, false);
 
+        drive(1800,1800,1800,1800,true);
+        drive(-1850, -1850, -1850, -1850, false);
+        drive(1700, -1700, -1700, 1700, false);
+        drive(430, -430, 430, -430, false); // turn for shooter second time
+        drive(400, 400, 400, 400, false);
 
-        while (opModeIsActive() && timer.seconds() < 2) {
-            telemetry.addLine("Shooter turning on...");
-        }
-        telemetry.update();
-        nudgeBall(0.25);
-        nudgeBall(0.53);
+        shootThreeBall();
 
-
-        drive(1044, -1044, -1044, 1044, false); // leave zone
-        drive(348, 348, 348, 348, false);
+        drive(-400, 400, -400, 400, false); // leave zone
+        drive(-1500, 1500, 1500, -1500, false);
     }
     private void nudgeBall(double intakeTime) {
         timer.reset();
@@ -234,7 +229,7 @@ public class BackUpAutoFrontBlue extends LinearOpMode {
         nudgeBall(0.25);
         nudgeBall(0.5);
         nudgeBall(0.4);
-        Shooter.setPower(-0.5);
+        Shooter.setPower(0);
 
 
     }
@@ -250,10 +245,18 @@ public class BackUpAutoFrontBlue extends LinearOpMode {
         backLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         backRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-        frontLeft.setPower(0.5);
-        frontRight.setPower(0.5);
-        backLeft.setPower(0.5);
-        backRight.setPower(0.5);
+        if (intakeAndTransfer) {
+            frontLeft.setPower(0.7);
+            frontRight.setPower(0.7);
+            backLeft.setPower(0.7);
+            backRight.setPower(0.7);
+        } else {
+            frontLeft.setPower(1);
+            frontRight.setPower(1);
+            backLeft.setPower(1);
+            backRight.setPower(1);
+        }
+
 
         double timeout = getRuntime() + 5.0;
 
