@@ -131,7 +131,7 @@ public class lowBattery extends LinearOpMode {
     private void shootThreeBall() {
         timer.reset();
         while (opModeIsActive() && timer.seconds() < 2) {
-            Shooter.setPower(0.9);
+            Shooter.setPower(shooterPower);
         }
 
         nudgeBall(0.25);
