@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
 @TeleOp
-public abstract class NevaanTestCode extends LinearOpMode {
+public class NevaanTestCode extends LinearOpMode {
     DcMotor Shooter;
     DcMotor Intake;
     DcMotor Transfer;
