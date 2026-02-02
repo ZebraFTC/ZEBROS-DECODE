@@ -91,9 +91,16 @@ public class lowBattery extends LinearOpMode {
     }
 
     private void driverControl() {
-        double drive = -1 * gamepad1.left_stick_y;
-        double strafe = -1 * gamepad1.left_stick_x;
-        double turn = 0.85 * gamepad1.right_stick_x;
+        double drive_var = -1;
+        if (gamepad1.x) {
+            drive_var = -0.8;
+        }
+        if (gamepad1.y) {
+            drive_var = -1;
+        }
+        double drive = drive_var * gamepad1.left_stick_y;
+        double strafe = drive_var * gamepad1.left_stick_x;
+        double turn = 0.5 * gamepad1.right_stick_x;
 
         setDrivePower(drive, strafe, turn);
     }
