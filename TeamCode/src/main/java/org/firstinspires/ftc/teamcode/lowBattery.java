@@ -84,6 +84,10 @@ public class lowBattery extends LinearOpMode {
             if (gamepad2.x) Shooter.setPower(0);
             if (gamepad2.left_bumper) Shooter.setPower(-1);
 
+            if (gamepad2.a) {
+                shootThreeBall();
+            }
+
         }
 
 
@@ -127,11 +131,13 @@ public class lowBattery extends LinearOpMode {
         while (opModeIsActive() && timer.seconds() < intakeTime) {
             Intake.setPower(-1);
             Transfer.setPower(-1);
+            idle();
         }
         timer.reset();
         while (opModeIsActive() && timer.seconds() < 1) {
             Intake.setPower(0);
             Transfer.setPower(0);
+            idle();
         }
     }
 
@@ -139,6 +145,7 @@ public class lowBattery extends LinearOpMode {
         timer.reset();
         while (opModeIsActive() && timer.seconds() < 2) {
             Shooter.setPower(shooterPower);
+            idle();
         }
 
         nudgeBall(0.25);

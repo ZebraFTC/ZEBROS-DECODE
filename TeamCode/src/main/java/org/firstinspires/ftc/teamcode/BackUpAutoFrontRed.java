@@ -124,7 +124,7 @@ public class BackUpAutoFrontRed extends LinearOpMode {
 
 
     public void runThreeBall() {
-        Shooter.setPower(0.7);
+        Shooter.setPower(0.9);
         drive(-2000, -2000, -2000, -2000, false);
 
 
@@ -142,7 +142,7 @@ public class BackUpAutoFrontRed extends LinearOpMode {
 
 
     public void runSixBall() {
-        Shooter.setPower(0.7);
+        Shooter.setPower(0.9);
         drive(-2000, -2000, -2000, -2000, false);
 
 
@@ -169,7 +169,7 @@ public class BackUpAutoFrontRed extends LinearOpMode {
         drive(1500, -1500, -1500, 1500, false);
     }
     public void runNineBall() {
-        Shooter.setPower(0.7);
+        Shooter.setPower(0.9);
         drive(-2000, -2000, -2000, -2000, false);
 
 
@@ -222,7 +222,7 @@ public class BackUpAutoFrontRed extends LinearOpMode {
     private void shootThreeBall() {
         timer.reset();
         while (opModeIsActive() && timer.seconds() < 2) {
-            Shooter.setPower(0.7);
+            Shooter.setPower(0.9);
         }
 
 
