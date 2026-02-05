@@ -11,7 +11,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import org.firstinspires.ftc.teamcode.mechanisms.AprilTagWebcam;
 import org.firstinspires.ftc.vision.apriltag.AprilTagDetection;
 
-@TeleOp(name = "Green Giant")
+@TeleOp(name = "Green Giant Test")
 public class apriltag extends LinearOpMode {
     DcMotor FrontLeft, FrontRight, BackLeft, BackRight;
     DcMotor Intake, Transfer, Shooter;
@@ -75,11 +75,7 @@ public class apriltag extends LinearOpMode {
             telemetry.addData("Shooter Power: ", shooterPower);
             telemetry.update();
 
-            if (gamepad2.right_bumper) {
-                aprilTagDebug();
-            } else {
-                driverControl();
-            }
+            driverControl();
 
             if (gamepad2.a) {
                 shootThreeBall();

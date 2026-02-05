@@ -18,6 +18,7 @@ public class BackAutoRed extends LinearOpMode {
     private DcMotor Intake;
     private DcMotor Transfer;
     private DcMotor Shooter;
+    private DcMotor ShooterAssist;
     private int FLP = 0;
     private int FRP = 0;
     private int BLP = 0;
@@ -32,7 +33,6 @@ public class BackAutoRed extends LinearOpMode {
         nine_ball
     }
 
-
     AutoCase selectedCase = AutoCase.taxi_auto;
 
     @Override
@@ -46,6 +46,7 @@ public class BackAutoRed extends LinearOpMode {
         Intake = hardwareMap.get(DcMotor.class, "intake");
         Transfer = hardwareMap.get(DcMotor.class, "transfer");
         Shooter = hardwareMap.get(DcMotor.class, "shooter");
+        ShooterAssist = hardwareMap.get(DcMotor.class, "shootertwo");
 
 
         frontLeft.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -57,6 +58,7 @@ public class BackAutoRed extends LinearOpMode {
         backLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         backRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         Shooter.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        ShooterAssist.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
 
         frontLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -126,16 +128,18 @@ public class BackAutoRed extends LinearOpMode {
 
     public void runThreeBall() {
         Shooter.setPower(1);
+        ShooterAssist.setPower(-1);
         drive(350, 350, 350, 350, false);
         drive(200, -200, 200, -200, false);
 
-        while (opModeIsActive() && timer.seconds() < 2) {
+        while (opModeIsActive() && timer.seconds() < 2.5) {
             telemetry.addLine("Shooter turning on...");
         }
-        nudgeBall(0.25);
-        nudgeBall(0.5);
-        nudgeBall(0.4);
+        nudgeBall(0.15, 0.5);
+        nudgeBall(0.4, 0.7);
+        nudgeBall(0.7, 1);
         Shooter.setPower(0);
+        ShooterAssist.setPower(0);
 
         drive(-200, 200, -200, 200, false);
         while (opModeIsActive() && timer.seconds() < 15) {
@@ -148,16 +152,18 @@ public class BackAutoRed extends LinearOpMode {
 
     public void runSixBall() {
         Shooter.setPower(1);
+        ShooterAssist.setPower(-1);
         drive(350, 350, 350, 350, false);
         drive(200, -200, 200, -200, false);
 
-        while (opModeIsActive() && timer.seconds() < 2) {
+        while (opModeIsActive() && timer.seconds() < 2.5) {
             telemetry.addLine("Shooter turning on...");
         }
-        nudgeBall(0.25);
-        nudgeBall(0.5);
-        nudgeBall(0.4);
+        nudgeBall(0.15, 0.5);
+        nudgeBall(0.4, 0.7);
+        nudgeBall(0.7, 1);
         Shooter.setPower(0);
+        ShooterAssist.setPower(0);
 
         drive(600, -600, 600, -600, false);
         drive(-950, 950, 950, -950, false);
@@ -173,16 +179,18 @@ public class BackAutoRed extends LinearOpMode {
     }
     public void runNineBall() {
         Shooter.setPower(1);
+        ShooterAssist.setPower(-1);
         drive(350, 350, 350, 350, false);
         drive(200, -200, 200, -200, false);
 
         while (opModeIsActive() && timer.seconds() < 2) {
             telemetry.addLine("Shooter turning on...");
         }
-        nudgeBall(0.25);
-        nudgeBall(0.5);
-        nudgeBall(0.4);
+        nudgeBall(0.15, 0.5);
+        nudgeBall(0.4, 0.7);
+        nudgeBall(0.7, 1);
         Shooter.setPower(0);
+        ShooterAssist.setPower(0);
 
         drive(600, -600, 600, -600, false);
         drive(-950, 950, 950, -950, false);
@@ -205,11 +213,11 @@ public class BackAutoRed extends LinearOpMode {
         drive(-200, 200, -200, 200, false);
         drive(800, 800, 800, 800, false);
     }
-    private void nudgeBall(double intakeTime) {
+    private void nudgeBall(double intakeTime, double intakeSpeed) {
         timer.reset();
         while (opModeIsActive() && timer.seconds() < intakeTime) {
-            Intake.setPower(-0.7);
-            Transfer.setPower(-0.7);
+            Intake.setPower(-intakeSpeed);
+            Transfer.setPower(-intakeSpeed);
         }
         timer.reset();
         while (opModeIsActive() && timer.seconds() < 1) {
@@ -221,17 +229,17 @@ public class BackAutoRed extends LinearOpMode {
 
     private void shootThreeBall() {
         timer.reset();
-        while (opModeIsActive() && timer.seconds() < 2) {
+        while (opModeIsActive() && timer.seconds() < 2.5) {
             Shooter.setPower(1);
+            ShooterAssist.setPower(-1);
         }
 
 
-        nudgeBall(0.25);
-        nudgeBall(0.5);
-        nudgeBall(0.4);
+        nudgeBall(0.15, 0.5);
+        nudgeBall(0.4, 0.7);
+        nudgeBall(0.7, 1);
         Shooter.setPower(0);
-
-
+        ShooterAssist.setPower(0);
     }
 
     public void drive(int FLTarget, int FRTarget, int BLTarget, int BRTarget, boolean intakeAndTransfer) {

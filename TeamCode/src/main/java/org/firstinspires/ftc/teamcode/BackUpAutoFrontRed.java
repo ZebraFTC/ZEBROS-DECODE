@@ -18,6 +18,7 @@ public class BackUpAutoFrontRed extends LinearOpMode {
     private DcMotor Intake;
     private DcMotor Transfer;
     private DcMotor Shooter;
+    private DcMotor ShooterAssist;
     private int FLP = 0;
     private int FRP = 0;
     private int BLP = 0;
@@ -46,6 +47,7 @@ public class BackUpAutoFrontRed extends LinearOpMode {
         Intake = hardwareMap.get(DcMotor.class, "intake");
         Transfer = hardwareMap.get(DcMotor.class, "transfer");
         Shooter = hardwareMap.get(DcMotor.class, "shooter");
+        ShooterAssist = hardwareMap.get(DcMotor.class, "shootertwo");
 
 
         frontLeft.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -57,6 +59,7 @@ public class BackUpAutoFrontRed extends LinearOpMode {
         backLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         backRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         Shooter.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        ShooterAssist.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
 
         frontLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -124,25 +127,8 @@ public class BackUpAutoFrontRed extends LinearOpMode {
 
 
     public void runThreeBall() {
-        Shooter.setPower(0.9);
-        drive(-2000, -2000, -2000, -2000, false);
-
-
-        while (opModeIsActive() && timer.seconds() < 2) {
-            telemetry.addLine("Shooter turning on...");
-        }
-        nudgeBall(0.25);
-        nudgeBall(0.5);
-        nudgeBall(0.4);
-        Shooter.setPower(-0.5);
-
-        drive(350, -350, 350, -350, false);
-        drive(1383, -1383, -1383, 1383, false);
-    }
-
-
-    public void runSixBall() {
-        Shooter.setPower(0.9);
+        Shooter.setPower(0.6);
+        ShooterAssist.setPower(-0.6);
         drive(-2000, -2000, -2000, -2000, false);
 
 
@@ -153,6 +139,27 @@ public class BackUpAutoFrontRed extends LinearOpMode {
         nudgeBall(0.5);
         nudgeBall(0.4);
         Shooter.setPower(0);
+        ShooterAssist.setPower(0);
+
+        drive(350, -350, 350, -350, false);
+        drive(1383, -1383, -1383, 1383, false);
+    }
+
+
+    public void runSixBall() {
+        Shooter.setPower(0.6);
+        ShooterAssist.setPower(-0.6);
+        drive(-2000, -2000, -2000, -2000, false);
+
+
+        while (opModeIsActive() && timer.seconds() < 2) {
+            telemetry.addLine("Shooter turning on...");
+        }
+        nudgeBall(0.25);
+        nudgeBall(0.5);
+        nudgeBall(0.4);
+        Shooter.setPower(0);
+        ShooterAssist.setPower(0);
 
         drive(350, -350, 350, -350, false);
         drive(700, -700, -700, 700, false);
@@ -169,7 +176,8 @@ public class BackUpAutoFrontRed extends LinearOpMode {
         drive(1500, -1500, -1500, 1500, false);
     }
     public void runNineBall() {
-        Shooter.setPower(0.9);
+        Shooter.setPower(0.6);
+        ShooterAssist.setPower(-0.6);
         drive(-2000, -2000, -2000, -2000, false);
 
 
@@ -180,6 +188,7 @@ public class BackUpAutoFrontRed extends LinearOpMode {
         nudgeBall(0.5);
         nudgeBall(0.4);
         Shooter.setPower(0);
+        ShooterAssist.setPower(0);
 
         drive(350, -350, 350, -350, false);
         drive(700, -700, -700, 700, false);
@@ -222,7 +231,8 @@ public class BackUpAutoFrontRed extends LinearOpMode {
     private void shootThreeBall() {
         timer.reset();
         while (opModeIsActive() && timer.seconds() < 2) {
-            Shooter.setPower(0.9);
+            Shooter.setPower(0.6);
+            ShooterAssist.setPower(-0.6);
         }
 
 
@@ -230,6 +240,7 @@ public class BackUpAutoFrontRed extends LinearOpMode {
         nudgeBall(0.5);
         nudgeBall(0.4);
         Shooter.setPower(0);
+        ShooterAssist.setPower(0);
 
 
     }
