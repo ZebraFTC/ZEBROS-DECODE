@@ -95,10 +95,15 @@ public class lowBattery extends LinearOpMode {
                 Shooter.setPower(-1);
                 ShooterAssist.setPower(1);
             }
-
-            if (gamepad2.a) {
-                shootThreeBall();
+            if (gamepad2.b) {
+                Intake.setPower(-1);
+                Transfer.setPower(-1);
             }
+            if (gamepad2.a) {
+                Intake.setPower(0);
+                Transfer.setPower(0);
+            }
+
 
         }
 

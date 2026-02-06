@@ -130,6 +130,7 @@ public class BackUpAutoFrontRed extends LinearOpMode {
         Shooter.setPower(0.6);
         ShooterAssist.setPower(-0.6);
         drive(-2000, -2000, -2000, -2000, false);
+        stopRobot();
 
 
         while (opModeIsActive() && timer.seconds() < 2) {
@@ -143,6 +144,7 @@ public class BackUpAutoFrontRed extends LinearOpMode {
 
         drive(350, -350, 350, -350, false);
         drive(1383, -1383, -1383, 1383, false);
+        stopRobot();
     }
 
 
@@ -150,6 +152,7 @@ public class BackUpAutoFrontRed extends LinearOpMode {
         Shooter.setPower(0.6);
         ShooterAssist.setPower(-0.6);
         drive(-2000, -2000, -2000, -2000, false);
+        stopRobot();
 
 
         while (opModeIsActive() && timer.seconds() < 2) {
@@ -168,17 +171,20 @@ public class BackUpAutoFrontRed extends LinearOpMode {
         drive(-1850, -1850, -1850, -1850, false);
         drive(-430, 430, -430, 430, false); // turn for shooter second time
         drive(400, 400, 400, 400, false);
+        stopRobot();
 
         shootThreeBall();
 
 
         drive(400, -400, 400, -400, false); // leave zone
         drive(1500, -1500, -1500, 1500, false);
+        stopRobot();
     }
     public void runNineBall() {
         Shooter.setPower(0.6);
         ShooterAssist.setPower(-0.6);
         drive(-2000, -2000, -2000, -2000, false);
+        stopRobot();
 
 
         while (opModeIsActive() && timer.seconds() < 2) {
@@ -197,6 +203,7 @@ public class BackUpAutoFrontRed extends LinearOpMode {
         drive(-1850, -1850, -1850, -1850, false);
         drive(-430, 430, -430, 430, false); // turn for shooter second time
         drive(400, 400, 400, 400, false);
+        stopRobot();
 
         shootThreeBall();
 
@@ -208,11 +215,13 @@ public class BackUpAutoFrontRed extends LinearOpMode {
         drive(-1700, 1700, 1700, -1700, false);
         drive(-430, 430, -430, 430, false); // turn for shooter second time
         drive(400, 400, 400, 400, false);
+        stopRobot();
 
         shootThreeBall();
 
         drive(400, -400, 400, -400, false); // leave zone
         drive(1500, -1500, -1500, 1500, false);
+        stopRobot();
     }
     private void nudgeBall(double intakeTime) {
         timer.reset();
@@ -283,7 +292,6 @@ public class BackUpAutoFrontRed extends LinearOpMode {
                 Transfer.setPower(-1);
             }
         }
-        stopRobot();
     }
     private void stopRobot() {
         frontLeft.setPower(0);
