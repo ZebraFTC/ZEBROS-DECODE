@@ -119,17 +119,22 @@ public class BackUpAutoFrontBlue extends LinearOpMode {
 
 
     public void runTaxi() {
+        while (opModeIsActive() && timer.seconds() < 20) {
+            telemetry.addLine("Waiting to move");
+        }
+        telemetry.update();
         drive(-2000, -2000, -2000, -2000, false);
 
-        drive(-465, 465, -465, 465, false);
+        drive(-350, 350, -350, 350, false);
         drive(-1383, 1383, 1383, -1383, false);
     }
 
 
     public void runThreeBall() {
-        Shooter.setPower(0.6);
-        ShooterAssist.setPower(-0.6);
-        drive(-2000, -2000, -2000, -2000, false);
+        Shooter.setPower(0.7);
+        ShooterAssist.setPower(-0.7);
+        changeDriveSpeed(-2000, -2000, -2000, -2000, false, 0.7);
+        stopRobot();
 
 
         while (opModeIsActive() && timer.seconds() < 2) {
@@ -141,15 +146,17 @@ public class BackUpAutoFrontBlue extends LinearOpMode {
         Shooter.setPower(0);
         ShooterAssist.setPower(0);
 
+
         drive(-465, 465, -465, 465, false);
         drive(-1383, 1383, 1383, -1383, false);
     }
 
 
     public void runSixBall() {
-        Shooter.setPower(0.6);
-        ShooterAssist.setPower(-0.6);
-        drive(-2000, -2000, -2000, -2000, false);
+        Shooter.setPower(0.7);
+        ShooterAssist.setPower(-0.7);
+        changeDriveSpeed(-2000, -2000, -2000, -2000, false, 0.7);
+        stopRobot();
 
 
         while (opModeIsActive() && timer.seconds() < 2) {
@@ -284,6 +291,45 @@ public class BackUpAutoFrontBlue extends LinearOpMode {
             }
         }
         stopRobot();
+    }
+    public void changeDriveSpeed(int FLTarget, int FRTarget, int BLTarget, int BRTarget, boolean intakeAndTransfer, double speed) {
+        frontLeft.setTargetPosition(frontLeft.getCurrentPosition() + FLTarget);
+        frontRight.setTargetPosition(frontRight.getCurrentPosition() + FRTarget);
+        backLeft.setTargetPosition(backLeft.getCurrentPosition() + BLTarget);
+        backRight.setTargetPosition(backRight.getCurrentPosition() + BRTarget);
+
+        frontLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        frontRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        backLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        backRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        if (intakeAndTransfer) {
+            frontLeft.setPower(0.7);
+            frontRight.setPower(0.7);
+            backLeft.setPower(0.7);
+            backRight.setPower(0.7);
+        } else {
+            frontLeft.setPower(speed);
+            frontRight.setPower(speed);
+            backLeft.setPower(speed);
+            backRight.setPower(speed);
+        }
+
+
+        double timeout = getRuntime() + 5.0;
+
+        while (opModeIsActive()
+                && (frontLeft.isBusy()
+                || frontRight.isBusy()
+                || backLeft.isBusy()
+                || backRight.isBusy())
+                && getRuntime() < timeout) {
+
+            if (intakeAndTransfer) {
+                Intake.setPower(-1);
+                Transfer.setPower(-1);
+            }
+        }
     }
     private void stopRobot() {
         frontLeft.setPower(0);

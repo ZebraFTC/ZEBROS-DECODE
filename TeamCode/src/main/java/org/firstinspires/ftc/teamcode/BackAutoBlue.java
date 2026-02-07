@@ -33,7 +33,7 @@ public class BackAutoBlue extends LinearOpMode {
         nine_ball
     }
 
-    AutoCase selectedCase = AutoCase.taxi_auto;
+    AutoCase selectedCase = AutoCase.six_ball;
 
     @Override
     public void runOpMode() {

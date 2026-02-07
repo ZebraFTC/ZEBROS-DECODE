@@ -119,26 +119,35 @@ public class BackUpAutoFrontRed extends LinearOpMode {
 
 
     public void runTaxi() {
+        while (opModeIsActive() && timer.seconds() < 20) {
+            telemetry.addLine("Waiting to move");
+        }
+        telemetry.update();
         drive(-2000, -2000, -2000, -2000, false);
 
         drive(350, -350, 350, -350, false);
         drive(1383, -1383, -1383, 1383, false);
+        stopRobot();
     }
 
 
     public void runThreeBall() {
-        Shooter.setPower(0.6);
-        ShooterAssist.setPower(-0.6);
-        drive(-2000, -2000, -2000, -2000, false);
+        Shooter.setPower(0.7);
+        ShooterAssist.setPower(-0.7);
+        changeDriveSpeed(-2000, -2000, -2000, -2000, false, 0.7);
         stopRobot();
 
 
         while (opModeIsActive() && timer.seconds() < 2) {
             telemetry.addLine("Shooter turning on...");
         }
-        nudgeBall(0.25);
-        nudgeBall(0.5);
-        nudgeBall(0.4);
+        timer.reset();
+        while (opModeIsActive() && timer.seconds() < 2) {
+            Intake.setPower(-1);
+            Transfer.setPower(-1);
+        }
+        Intake.setPower(0);
+        Transfer.setPower(0);
         Shooter.setPower(0);
         ShooterAssist.setPower(0);
 
@@ -149,20 +158,24 @@ public class BackUpAutoFrontRed extends LinearOpMode {
 
 
     public void runSixBall() {
-        Shooter.setPower(0.6);
-        ShooterAssist.setPower(-0.6);
-        drive(-2000, -2000, -2000, -2000, false);
-        stopRobot();
+        Shooter.setPower(0.75);
+        ShooterAssist.setPower(-0.75);
+        changeDriveSpeed(-2000, -2000, -2000, -2000, false, 0.7);
 
 
         while (opModeIsActive() && timer.seconds() < 2) {
             telemetry.addLine("Shooter turning on...");
         }
-        nudgeBall(0.25);
-        nudgeBall(0.5);
-        nudgeBall(0.4);
+        timer.reset();
+        while (opModeIsActive() && timer.seconds() < 2) {
+            Intake.setPower(-1);
+            Transfer.setPower(-1);
+        }
+        Intake.setPower(0);
+        Transfer.setPower(0);
         Shooter.setPower(0);
         ShooterAssist.setPower(0);
+
 
         drive(350, -350, 350, -350, false);
         drive(700, -700, -700, 700, false);
@@ -171,28 +184,30 @@ public class BackUpAutoFrontRed extends LinearOpMode {
         drive(-1850, -1850, -1850, -1850, false);
         drive(-430, 430, -430, 430, false); // turn for shooter second time
         drive(400, 400, 400, 400, false);
-        stopRobot();
 
         shootThreeBall();
 
 
         drive(400, -400, 400, -400, false); // leave zone
         drive(1500, -1500, -1500, 1500, false);
-        stopRobot();
     }
     public void runNineBall() {
-        Shooter.setPower(0.6);
-        ShooterAssist.setPower(-0.6);
-        drive(-2000, -2000, -2000, -2000, false);
+        Shooter.setPower(0.7);
+        ShooterAssist.setPower(-0.7);
+        changeDriveSpeed(-2000, -2000, -2000, -2000, false, 0.7);
         stopRobot();
 
 
         while (opModeIsActive() && timer.seconds() < 2) {
             telemetry.addLine("Shooter turning on...");
         }
-        nudgeBall(0.25);
-        nudgeBall(0.5);
-        nudgeBall(0.4);
+        timer.reset();
+        while (opModeIsActive() && timer.seconds() < 2) {
+            Intake.setPower(-1);
+            Transfer.setPower(-1);
+        }
+        Intake.setPower(0);
+        Transfer.setPower(0);
         Shooter.setPower(0);
         ShooterAssist.setPower(0);
 
@@ -226,8 +241,8 @@ public class BackUpAutoFrontRed extends LinearOpMode {
     private void nudgeBall(double intakeTime) {
         timer.reset();
         while (opModeIsActive() && timer.seconds() < intakeTime) {
-            Intake.setPower(-0.7);
-            Transfer.setPower(-0.7);
+            Intake.setPower(-1);
+            Transfer.setPower(-1);
         }
         timer.reset();
         while (opModeIsActive() && timer.seconds() < 1) {
@@ -238,16 +253,20 @@ public class BackUpAutoFrontRed extends LinearOpMode {
 
 
     private void shootThreeBall() {
+        Shooter.setPower(0.7);
+        ShooterAssist.setPower(-0.7);
+
+        timer.reset();
+        while (opModeIsActive() && timer.seconds() < 3) {
+            telemetry.addLine("Shooter turning on...");
+        }
         timer.reset();
         while (opModeIsActive() && timer.seconds() < 2) {
-            Shooter.setPower(0.6);
-            ShooterAssist.setPower(-0.6);
+            Intake.setPower(-1);
+            Transfer.setPower(-1);
         }
-
-
-        nudgeBall(0.25);
-        nudgeBall(0.5);
-        nudgeBall(0.4);
+        Intake.setPower(0);
+        Transfer.setPower(0);
         Shooter.setPower(0);
         ShooterAssist.setPower(0);
 
@@ -292,6 +311,47 @@ public class BackUpAutoFrontRed extends LinearOpMode {
                 Transfer.setPower(-1);
             }
         }
+        stopRobot();
+    }
+    public void changeDriveSpeed(int FLTarget, int FRTarget, int BLTarget, int BRTarget, boolean intakeAndTransfer, double speed) {
+        frontLeft.setTargetPosition(frontLeft.getCurrentPosition() + FLTarget);
+        frontRight.setTargetPosition(frontRight.getCurrentPosition() + FRTarget);
+        backLeft.setTargetPosition(backLeft.getCurrentPosition() + BLTarget);
+        backRight.setTargetPosition(backRight.getCurrentPosition() + BRTarget);
+
+        frontLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        frontRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        backLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        backRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        if (intakeAndTransfer) {
+            frontLeft.setPower(0.7);
+            frontRight.setPower(0.7);
+            backLeft.setPower(0.7);
+            backRight.setPower(0.7);
+        } else {
+            frontLeft.setPower(speed);
+            frontRight.setPower(speed);
+            backLeft.setPower(speed);
+            backRight.setPower(speed);
+        }
+
+
+        double timeout = getRuntime() + 5.0;
+
+        while (opModeIsActive()
+                && (frontLeft.isBusy()
+                || frontRight.isBusy()
+                || backLeft.isBusy()
+                || backRight.isBusy())
+                && getRuntime() < timeout) {
+
+            if (intakeAndTransfer) {
+                Intake.setPower(-1);
+                Transfer.setPower(-1);
+            }
+        }
+        stopRobot();
     }
     private void stopRobot() {
         frontLeft.setPower(0);

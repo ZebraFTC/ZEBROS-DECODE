@@ -33,7 +33,7 @@ public class BackAutoRed extends LinearOpMode {
         nine_ball
     }
 
-    AutoCase selectedCase = AutoCase.taxi_auto;
+    AutoCase selectedCase = AutoCase.six_ball;
 
     @Override
     public void runOpMode() {
@@ -127,17 +127,17 @@ public class BackAutoRed extends LinearOpMode {
 
 
     public void runThreeBall() {
-        Shooter.setPower(1);
-        ShooterAssist.setPower(-1);
+        Shooter.setPower(0.95);
+        ShooterAssist.setPower(-0.95);
         drive(350, 350, 350, 350, false);
         drive(200, -200, 200, -200, false);
 
         while (opModeIsActive() && timer.seconds() < 2.5) {
             telemetry.addLine("Shooter turning on...");
         }
-        nudgeBall(0.15, 0.5);
-        nudgeBall(0.4, 0.7);
-        nudgeBall(0.7, 1);
+        nudgeBall(0.1, 0.9);
+        nudgeBall(0.3, 0.9);
+        nudgeBall(0.6, 1);
         Shooter.setPower(0);
         ShooterAssist.setPower(0);
 

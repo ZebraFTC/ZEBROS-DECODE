@@ -34,7 +34,7 @@ public class FrontAutoBlue extends LinearOpMode {
     }
 
 
-    AutoCase selectedCase = AutoCase.taxi_auto;
+    AutoCase selectedCase = AutoCase.six_ball;
 
     @Override
     public void runOpMode() {
