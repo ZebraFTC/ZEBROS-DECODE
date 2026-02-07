@@ -151,17 +151,17 @@ public class BackAutoRed extends LinearOpMode {
 
 
     public void runSixBall() {
-        Shooter.setPower(1);
-        ShooterAssist.setPower(-1);
+        Shooter.setPower(0.95);
+        ShooterAssist.setPower(-0.95);
         drive(350, 350, 350, 350, false);
         drive(200, -200, 200, -200, false);
 
         while (opModeIsActive() && timer.seconds() < 2.5) {
             telemetry.addLine("Shooter turning on...");
         }
-        nudgeBall(0.15, 0.5);
-        nudgeBall(0.4, 0.7);
-        nudgeBall(0.7, 1);
+        nudgeBall(0.1, 0.9);
+        nudgeBall(0.3, 0.9);
+        nudgeBall(0.6, 1);
         Shooter.setPower(0);
         ShooterAssist.setPower(0);
 
@@ -178,17 +178,17 @@ public class BackAutoRed extends LinearOpMode {
         drive(800, 800, 800, 800, false);
     }
     public void runNineBall() {
-        Shooter.setPower(1);
-        ShooterAssist.setPower(-1);
+        Shooter.setPower(0.95);
+        ShooterAssist.setPower(-0.95);
         drive(350, 350, 350, 350, false);
         drive(200, -200, 200, -200, false);
 
-        while (opModeIsActive() && timer.seconds() < 2) {
+        while (opModeIsActive() && timer.seconds() < 2.5) {
             telemetry.addLine("Shooter turning on...");
         }
-        nudgeBall(0.15, 0.5);
-        nudgeBall(0.4, 0.7);
-        nudgeBall(0.7, 1);
+        nudgeBall(0.1, 0.9);
+        nudgeBall(0.3, 0.9);
+        nudgeBall(0.6, 1);
         Shooter.setPower(0);
         ShooterAssist.setPower(0);
 
@@ -202,6 +202,7 @@ public class BackAutoRed extends LinearOpMode {
         shootThreeBall();
 
         drive(600, -600, 600, -600, false);
+        drive(-1500, 1500, 1500, -1500, false);
         drive(-2000, 2000, 2000, -2000, false);
         drive(2000,2000,2000,2000,true);
         drive(-2000, -2000, -2000, -2000, false);
@@ -235,9 +236,9 @@ public class BackAutoRed extends LinearOpMode {
         }
 
 
-        nudgeBall(0.15, 0.5);
-        nudgeBall(0.4, 0.7);
-        nudgeBall(0.7, 1);
+        nudgeBall(0.1, 0.9);
+        nudgeBall(0.3, 0.9);
+        nudgeBall(0.6, 1);
         Shooter.setPower(0);
         ShooterAssist.setPower(0);
     }

@@ -127,17 +127,17 @@ public class FrontAutoRed extends LinearOpMode {
 
 
     public void runThreeBall() {
-        Shooter.setPower(0.6);
-        ShooterAssist.setPower(-0.6);
+        Shooter.setPower(0.75);
+        ShooterAssist.setPower(-0.75);
         drive(-2000, -2000, -2000, -2000, false);
 
 
         while (opModeIsActive() && timer.seconds() < 2) {
             telemetry.addLine("Shooter turning on...");
         }
-        nudgeBall(0.25);
-        nudgeBall(0.5);
-        nudgeBall(0.4);
+        nudgeBall(0.1);
+        nudgeBall(0.3);
+        nudgeBall(0.6);
         Shooter.setPower(0);
         ShooterAssist.setPower(0);
 
@@ -165,7 +165,7 @@ public class FrontAutoRed extends LinearOpMode {
         drive(650, -650, -650, 650, false);
 
         drive(1800,1800,1800,1800,true);
-        drive(-1900, -1900, -1900, -1900, false);
+        drive(-1850, -1850, -1850, -1850, false);
         drive(-390, 390, -390, 390, false); // turn for shooter second time
         drive(400, 400, 400, 400, false);
 
@@ -176,26 +176,26 @@ public class FrontAutoRed extends LinearOpMode {
         drive(1500, -1500, -1500, 1500, false);
     }
     public void runNineBall() {
-        Shooter.setPower(0.6);
-        ShooterAssist.setPower(-0.6);
-        drive(-2000, -2000, -2000, -2000, false);
+        Shooter.setPower(0.75);
+        ShooterAssist.setPower(-0.75);
+        changeDriveSpeed(-2000, -2000, -2000, -2000, false, 0.7);
 
 
         while (opModeIsActive() && timer.seconds() < 2) {
             telemetry.addLine("Shooter turning on...");
         }
-        nudgeBall(0.25);
-        nudgeBall(0.5);
-        nudgeBall(0.4);
+        nudgeBall(0.1);
+        nudgeBall(0.3);
+        nudgeBall(0.6);
         Shooter.setPower(0);
         ShooterAssist.setPower(0);
 
         drive(350, -350, 350, -350, false);
-        drive(700, -700, -700, 700, false);
+        drive(650, -650, -650, 650, false);
 
         drive(1800,1800,1800,1800,true);
         drive(-1850, -1850, -1850, -1850, false);
-        drive(-430, 430, -430, 430, false); // turn for shooter second time
+        drive(-390, 390, -390, 390, false); // turn for shooter second time
         drive(400, 400, 400, 400, false);
 
         shootThreeBall();
@@ -211,7 +211,7 @@ public class FrontAutoRed extends LinearOpMode {
 
         shootThreeBall();
 
-        drive(400, -400, 400, -400, false); // leave zone
+        drive(350, -350, 350, -350, false); // leave zone
         drive(1500, -1500, -1500, 1500, false);
     }
     private void nudgeBall(double intakeTime) {
