@@ -64,9 +64,10 @@ public class lowBattery extends LinearOpMode {
                 shooterPower = 0.8;
             }
             else if (gamepad2.dpad_down) {
-                shooterPower = 0.7;
-            }
-            else if (gamepad2.x) {
+                shooterPower = 0.85;
+            } else if (gamepad2.b) {
+                shooterPower = 0.95;
+            } else if (gamepad2.x) {
                 shooterPower = 0;
             }
             Shooter.setPower(shooterPower);
@@ -95,10 +96,10 @@ public class lowBattery extends LinearOpMode {
                 Shooter.setPower(-1);
                 ShooterAssist.setPower(1);
             }
-            if (gamepad2.b) {
-                Intake.setPower(-1);
-                Transfer.setPower(-1);
-            }
+//            if (gamepad2.b) {
+//                Intake.setPower(-1);
+//                Transfer.setPower(-1);
+//            }
             if (gamepad2.a) {
                 Intake.setPower(0);
                 Transfer.setPower(0);
@@ -113,10 +114,9 @@ public class lowBattery extends LinearOpMode {
 
     private void driverControl() {
         double drive_var = -1;
-        if (gamepad1.x) {
+        if (gamepad1.xWasPressed()) {
             drive_var = -0.8;
-        }
-        if (gamepad1.y) {
+        } else if (gamepad1.yWasPressed()) {
             drive_var = -1;
         }
         double drive = drive_var * gamepad1.left_stick_y;

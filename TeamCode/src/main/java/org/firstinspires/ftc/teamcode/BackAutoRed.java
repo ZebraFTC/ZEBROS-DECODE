@@ -205,7 +205,7 @@ public class BackAutoRed extends LinearOpMode {
         drive(-1500, 1500, 1500, -1500, false);
         drive(-2000, 2000, 2000, -2000, false);
         drive(2000,2000,2000,2000,true);
-        drive(-2000, -2000, -2000, -2000, false);
+        drive(-1900, -1900, -1900, -1900, false);
         drive(1500, -1500, -1500, 1500, false); // turn for shooter second time
         drive(-600, 600, -600, 600, false);
 

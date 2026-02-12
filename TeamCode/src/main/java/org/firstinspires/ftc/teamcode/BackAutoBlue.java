@@ -127,8 +127,8 @@ public class BackAutoBlue extends LinearOpMode {
 
 
     public void runThreeBall() {
-        Shooter.setPower(0.95);
-        ShooterAssist.setPower(-0.95);
+        Shooter.setPower(0.8);
+        ShooterAssist.setPower(-0.8);
         drive(350, 350, 350, 350, false);
         drive(-200, 200, -200, 200, false);
 
@@ -151,8 +151,8 @@ public class BackAutoBlue extends LinearOpMode {
 
 
     public void runSixBall() {
-        Shooter.setPower(0.95);
-        ShooterAssist.setPower(-0.95);
+        Shooter.setPower(0.91);
+        ShooterAssist.setPower(-0.91);
         drive(350, 350, 350, 350, false);
         drive(-200, 200, -200, 200, false);
 
@@ -168,8 +168,8 @@ public class BackAutoBlue extends LinearOpMode {
         drive(-600, 600, -600, 600, false);
         drive(950, -950, -950, 950, false);
         drive(2000,2000,2000,2000,true);
-        drive(-2000, -2000, -2000, -2000, false);
-        drive(-500, 500, 500, -500, false); // turn for shooter second time
+        drive(-1900, -1900, -1900, -1900, false);
+        drive(-700, 700, 700, -700, false); // turn for shooter second time
         drive(600, -600, 600, -600, false);
 
         shootThreeBall();
@@ -231,8 +231,8 @@ public class BackAutoBlue extends LinearOpMode {
     private void shootThreeBall() {
         timer.reset();
         while (opModeIsActive() && timer.seconds() < 2) {
-            Shooter.setPower(1);
-            ShooterAssist.setPower(-1);
+            Shooter.setPower(0.93);
+            ShooterAssist.setPower(-0.93);
         }
 
 
