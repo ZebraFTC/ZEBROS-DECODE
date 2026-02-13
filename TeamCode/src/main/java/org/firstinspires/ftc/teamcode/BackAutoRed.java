@@ -237,8 +237,8 @@ public class BackAutoRed extends LinearOpMode {
 
 
         nudgeBall(0.1, 0.9);
-        nudgeBall(0.3, 0.9);
-        nudgeBall(0.6, 1);
+        nudgeBall(0.5, 0.9);
+        nudgeBall(2, 1);
         Shooter.setPower(0);
         ShooterAssist.setPower(0);
     }

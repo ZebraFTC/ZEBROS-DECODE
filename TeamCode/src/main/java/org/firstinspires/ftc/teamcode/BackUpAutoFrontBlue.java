@@ -127,8 +127,8 @@ public class BackUpAutoFrontBlue extends LinearOpMode {
 
 
     public void runThreeBall() {
-        Shooter.setPower(0.8);
-        ShooterAssist.setPower(-0.8);
+        Shooter.setPower(0.84);
+        ShooterAssist.setPower(-0.84);
         changeDriveSpeed(-2000, -2000, -2000, -2000, false, 0.7);
 
 
@@ -146,8 +146,8 @@ public class BackUpAutoFrontBlue extends LinearOpMode {
 
 
     public void runSixBall() {
-        Shooter.setPower(0.65);
-        ShooterAssist.setPower(-0.65);
+        Shooter.setPower(0.85);
+        ShooterAssist.setPower(-0.85);
         changeDriveSpeed(-2000, -2000, -2000, -2000, false, 0.7);
 
 
@@ -156,7 +156,7 @@ public class BackUpAutoFrontBlue extends LinearOpMode {
         }
         nudgeBall(0.1);
         nudgeBall(0.3);
-        nudgeBall(0.6);
+        nudgeBall(2);
         Shooter.setPower(0);
         ShooterAssist.setPower(0);
 
@@ -280,7 +280,6 @@ public class BackUpAutoFrontBlue extends LinearOpMode {
 
             if (intakeAndTransfer) {
                 Intake.setPower(-1);
-                Transfer.setPower(-1);
             }
         }
         stopRobot();

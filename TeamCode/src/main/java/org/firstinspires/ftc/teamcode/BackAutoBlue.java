@@ -127,10 +127,10 @@ public class BackAutoBlue extends LinearOpMode {
 
 
     public void runThreeBall() {
-        Shooter.setPower(0.8);
-        ShooterAssist.setPower(-0.8);
+        Shooter.setPower(0.85);
+        ShooterAssist.setPower(-0.85);
         drive(350, 350, 350, 350, false);
-        drive(-200, 200, -200, 200, false);
+        drive(-250, 250, -250, 250, false);
 
         while (opModeIsActive() && timer.seconds() < 2.5) {
             telemetry.addLine("Shooter turning on...");
@@ -151,30 +151,28 @@ public class BackAutoBlue extends LinearOpMode {
 
 
     public void runSixBall() {
-        Shooter.setPower(0.91);
-        ShooterAssist.setPower(-0.91);
+        Shooter.setPower(0.9);
+        ShooterAssist.setPower(-0.9);
         drive(350, 350, 350, 350, false);
-        drive(-200, 200, -200, 200, false);
+        drive(-250, 250, -250, 250, false);
 
         while (opModeIsActive() && timer.seconds() < 2.5) {
             telemetry.addLine("Shooter turning on...");
         }
-        nudgeBall(0.1, 0.9);
-        nudgeBall(0.3, 0.9);
-        nudgeBall(0.6, 1);
+        nudgeBall(4, 1);
         Shooter.setPower(0);
         ShooterAssist.setPower(0);
 
-        drive(-600, 600, -600, 600, false);
-        drive(950, -950, -950, 950, false);
+        drive(-560, 560, -560, 560, false);
+        drive(820, -820, -820, 820, false);
         drive(2000,2000,2000,2000,true);
-        drive(-1900, -1900, -1900, -1900, false);
-        drive(-700, 700, 700, -700, false); // turn for shooter second time
-        drive(600, -600, 600, -600, false);
+        changeDriveSpeed(-1850, -1850, -1850, -1850, false, 0.7);
+        drive(-920, 920, 920, -920, false); // turn for shooter second time
+        drive(540, -540, 540, -540, false);
 
         shootThreeBall();
 
-        drive(200, -200, 200, -200, false);
+        drive(250, -250, 250, -250, false);
         drive(800, 800, 800, 800, false);
     }
     public void runNineBall() {
@@ -231,14 +229,11 @@ public class BackAutoBlue extends LinearOpMode {
     private void shootThreeBall() {
         timer.reset();
         while (opModeIsActive() && timer.seconds() < 2) {
-            Shooter.setPower(0.93);
-            ShooterAssist.setPower(-0.93);
+            Shooter.setPower(0.95);
+            ShooterAssist.setPower(-0.95);
         }
 
-
-        nudgeBall(0.1, 0.9);
-        nudgeBall(0.3, 0.9);
-        nudgeBall(0.6, 1);
+        nudgeBall(4, 1);
         Shooter.setPower(0);
         ShooterAssist.setPower(0);
     }
@@ -255,15 +250,54 @@ public class BackAutoBlue extends LinearOpMode {
         backRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
         if (intakeAndTransfer) {
-            frontLeft.setPower(0.7);
-            frontRight.setPower(0.7);
-            backLeft.setPower(0.7);
-            backRight.setPower(0.7);
+            frontLeft.setPower(0.6);
+            frontRight.setPower(0.6);
+            backLeft.setPower(0.6);
+            backRight.setPower(0.6);
         } else {
             frontLeft.setPower(1);
             frontRight.setPower(1);
             backLeft.setPower(1);
             backRight.setPower(1);
+        }
+
+
+        double timeout = getRuntime() + 5.0;
+
+        while (opModeIsActive()
+                && (frontLeft.isBusy()
+                || frontRight.isBusy()
+                || backLeft.isBusy()
+                || backRight.isBusy())
+                && getRuntime() < timeout) {
+
+            if (intakeAndTransfer) {
+                Intake.setPower(-1);
+            }
+        }
+        stopRobot();
+    }
+    public void changeDriveSpeed(int FLTarget, int FRTarget, int BLTarget, int BRTarget, boolean intakeAndTransfer, double speed) {
+        frontLeft.setTargetPosition(frontLeft.getCurrentPosition() + FLTarget);
+        frontRight.setTargetPosition(frontRight.getCurrentPosition() + FRTarget);
+        backLeft.setTargetPosition(backLeft.getCurrentPosition() + BLTarget);
+        backRight.setTargetPosition(backRight.getCurrentPosition() + BRTarget);
+
+        frontLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        frontRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        backLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        backRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        if (intakeAndTransfer) {
+            frontLeft.setPower(0.7);
+            frontRight.setPower(0.7);
+            backLeft.setPower(0.7);
+            backRight.setPower(0.7);
+        } else {
+            frontLeft.setPower(speed);
+            frontRight.setPower(speed);
+            backLeft.setPower(speed);
+            backRight.setPower(speed);
         }
 
 
