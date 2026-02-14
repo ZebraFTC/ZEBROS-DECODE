@@ -127,17 +127,17 @@ public class BackAutoBlue extends LinearOpMode {
 
 
     public void runThreeBall() {
-        Shooter.setPower(0.85);
-        ShooterAssist.setPower(-0.85);
+        Shooter.setPower(0.9);
+        ShooterAssist.setPower(-0.9);
         drive(350, 350, 350, 350, false);
         drive(-250, 250, -250, 250, false);
 
         while (opModeIsActive() && timer.seconds() < 2.5) {
             telemetry.addLine("Shooter turning on...");
         }
-        nudgeBall(0.1, 0.9);
-        nudgeBall(0.3, 0.9);
-        nudgeBall(0.6, 1);
+        nudgeBall(4, 1);
+        Shooter.setPower(0);
+        ShooterAssist.setPower(0);
         Shooter.setPower(0);
         ShooterAssist.setPower(0);
 
@@ -176,26 +176,24 @@ public class BackAutoBlue extends LinearOpMode {
         drive(800, 800, 800, 800, false);
     }
     public void runNineBall() {
-        Shooter.setPower(0.95);
-        ShooterAssist.setPower(-0.95);
+        Shooter.setPower(0.9);
+        ShooterAssist.setPower(-0.9);
         drive(350, 350, 350, 350, false);
-        drive(-200, 200, -200, 200, false);
+        drive(-250, 250, -250, 250, false);
 
         while (opModeIsActive() && timer.seconds() < 2.5) {
             telemetry.addLine("Shooter turning on...");
         }
-        nudgeBall(0.1, 0.9);
-        nudgeBall(0.3, 0.9);
-        nudgeBall(0.6, 1);
+        nudgeBall(4, 1);
         Shooter.setPower(0);
         ShooterAssist.setPower(0);
 
-        drive(-600, 600, -600, 600, false);
-        drive(950, -950, -950, 950, false);
+        drive(-560, 560, -560, 560, false);
+        drive(820, -820, -820, 820, false);
         drive(2000,2000,2000,2000,true);
-        drive(-2000, -2000, -2000, -2000, false);
-        drive(-500, 500, 500, -500, false); // turn for shooter second time
-        drive(600, -600, 600, -600, false);
+        changeDriveSpeed(-1850, -1850, -1850, -1850, false, 0.7);
+        drive(-920, 920, 920, -920, false); // turn for shooter second time
+        drive(540, -540, 540, -540, false);
 
         shootThreeBall();
 

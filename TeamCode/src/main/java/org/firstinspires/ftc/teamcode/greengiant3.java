@@ -4,23 +4,27 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
-import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-//import org.firstinspires.ftc.teamcode.mechanisms.AprilTagWebcam;
 import org.firstinspires.ftc.teamcode.mechanisms.AprilTagWebcam;
 import org.firstinspires.ftc.vision.apriltag.AprilTagDetection;
 
-@TeleOp(name = "Test April Tag Logic")
+@TeleOp(name = "GREENGiant")
 public class greengiant3 extends LinearOpMode {
+
     DcMotor FrontLeft, FrontRight, BackLeft, BackRight;
-    DcMotor Intake, Transfer, Shooter;
-    Servo Flap;
+    DcMotor Intake, Transfer, Shooter, ShooterAssist;
+
+    public double shooterPower = 0;
     private static ElapsedTime timer = new ElapsedTime();
 
     AprilTagWebcam aprilTag = new AprilTagWebcam();
 
-    static int TARGET_TAG_ID = 1; // CHANGE IF NEEDED
+    static int TARGET_TAG_ID = 1;
+
+    // Drive speed toggle
+    private boolean fastMode = false;
+    private boolean lastRightBumperState = false;
 
     @Override
     public void runOpMode() {
@@ -33,102 +37,109 @@ public class greengiant3 extends LinearOpMode {
         Intake = hardwareMap.get(DcMotor.class, "intake");
         Transfer = hardwareMap.get(DcMotor.class, "transfer");
         Shooter = hardwareMap.get(DcMotor.class, "shooter");
-        Flap = hardwareMap.get(Servo.class, "flap");
+        ShooterAssist = hardwareMap.get(DcMotor.class, "shootertwo");
 
         FrontLeft.setDirection(DcMotorSimple.Direction.REVERSE);
         BackLeft.setDirection(DcMotorSimple.Direction.REVERSE);
 
         Shooter.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        ShooterAssist.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         aprilTag.init(hardwareMap, telemetry);
 
         waitForStart();
 
         while (opModeIsActive()) {
-            if (gamepad1.dpad_left) {
-                TARGET_TAG_ID = 20;
-                telemetry.addLine("Blue Alliance");
-            }
-            if (gamepad1.dpad_right) {
-                TARGET_TAG_ID = 24;
-                telemetry.addLine("Red Alliance");
-            }
-            telemetry.update();
 
+            // ================= DRIVE SPEED TOGGLE =================
+            if (gamepad1.right_bumper && !lastRightBumperState) {
+                fastMode = !fastMode;
+            }
+            lastRightBumperState = gamepad1.right_bumper;
+
+            // ================= SHOOTER SPEED SELECTION =================
+            if (gamepad2.dpad_up) {
+                shooterPower = 1.0;
+            }
+            else if (gamepad2.dpad_left) {
+                shooterPower = 0.9;
+            }
+            else if (gamepad2.dpad_right) {
+                shooterPower = 0.8;
+            }
+            else if (gamepad2.dpad_down) {
+                shooterPower = 0.85;
+            }
+            else if (gamepad2.b) {
+                shooterPower = 0.95;
+            }
+
+            // ================= SHOOTER CONTROL =================
+            if (gamepad2.y) {  // HOLD to reverse
+                Shooter.setPower(-shooterPower);
+                ShooterAssist.setPower(shooterPower);
+            }
+            else if (gamepad2.x) {  // Stop shooter
+                Shooter.setPower(0);
+                ShooterAssist.setPower(0);
+            }
+            else {  // Normal forward
+                Shooter.setPower(shooterPower);
+                ShooterAssist.setPower(-shooterPower);
+            }
+
+            // ================= DRIVER CONTROL =================
+            driverControl();
+
+            // ================= INTAKE =================
+            Intake.setPower(gamepad2.left_trigger - gamepad2.right_trigger);
+
+            // ================= TRANSFER =================
             if (gamepad2.right_bumper) {
-                aprilTagDebug();
-            } else {
-                driverControl();
+                Transfer.setPower(-1);
+            }
+            else if (gamepad2.left_bumper) {
+                Transfer.setPower(1);
+            }
+            else {
+                Transfer.setPower(0);
             }
 
             if (gamepad2.a) {
-                shootThreeBall();
+                Intake.setPower(0);
+                Transfer.setPower(0);
             }
 
-            Intake.setPower(gamepad2.left_trigger - gamepad2.right_trigger);
-            Transfer.setPower(gamepad2.left_trigger - gamepad2.right_trigger);
-
-            if (gamepad2.y) Shooter.setPower(0.7);
-            if (gamepad2.x) Shooter.setPower(0);
-            if (gamepad2.left_bumper) Shooter.setPower(-1);
-
+            telemetry.addData("Fast Mode", fastMode);
+            telemetry.addData("Shooter Power", shooterPower);
+            telemetry.update();
         }
-
 
         aprilTag.stop();
     }
 
     private void driverControl() {
-        double drive = -0.85 * gamepad1.left_stick_y;
-        double strafe = -0.85 * gamepad1.left_stick_x;
+
+        double driveMultiplier;
+
+        // HOLD X for slow precision mode
+        if (gamepad1.x) {
+            driveMultiplier = -0.6;
+        }
+        // Fast toggle mode
+        else if (fastMode) {
+            driveMultiplier = -1.0;   // 1.0 is max motor power
+        }
+        // Normal mode
+        else {
+            driveMultiplier = -0.8;
+        }
+
+        double drive = driveMultiplier * gamepad1.left_stick_y;
+        double strafe = driveMultiplier * gamepad1.left_stick_x;
         double turn = 0.5 * gamepad1.right_stick_x;
 
         setDrivePower(drive, strafe, turn);
-    }
-
-    private void aprilTagDebug() {
-        AprilTagDetection tag = aprilTag.getTagById(TARGET_TAG_ID);
-
-
-        while (opModeIsActive()) {
-            if (tag == null) {
-                telemetry.addLine("Searching for tag ID " + TARGET_TAG_ID);
-                idle();
-            } else {
-                telemetry.addLine("TARGET TAG FOUND!");
-                telemetry.addData("Tag ID", tag.id);
-                telemetry.addData("Yaw (deg)", tag.ftcPose.yaw);
-                telemetry.addData("Range (cm)", tag.ftcPose.range);
-            }
-        }
-
-
-        telemetry.update();
-    }
-    private void nudgeBall(double intakeTime) {
-        timer.reset();
-        while (opModeIsActive() && timer.seconds() < intakeTime) {
-            Intake.setPower(-0.7);
-            Transfer.setPower(-0.7);
-        }
-        timer.reset();
-        while (opModeIsActive() && timer.seconds() < 1) {
-            Intake.setPower(0);
-            Transfer.setPower(0);
-        }
-    }
-
-    private void shootThreeBall() {
-        timer.reset();
-        while (opModeIsActive() && timer.seconds() < 2) {
-            Shooter.setPower(0.7);
-        }
-
-        nudgeBall(0.25);
-        nudgeBall(0.5);
-        nudgeBall(0.4);
-        Shooter.setPower(-0.5);
-
     }
 
     private void setDrivePower(double drive, double strafe, double turn) {

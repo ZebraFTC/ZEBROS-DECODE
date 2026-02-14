@@ -114,10 +114,14 @@ public class lowBattery extends LinearOpMode {
 
     private void driverControl() {
         double drive_var = -1;
+        double toggleSpeed = 1;
         if (gamepad1.xWasPressed()) {
-            drive_var = -0.8;
-        } else if (gamepad1.yWasPressed()) {
+            toggleSpeed = toggleSpeed * -1;
+        }
+        if (toggleSpeed == 1) {
             drive_var = -1;
+        } else if (toggleSpeed == (-1)) {
+            drive_var = 0.6;
         }
         double drive = drive_var * gamepad1.left_stick_y;
         double strafe = drive_var * gamepad1.left_stick_x;
