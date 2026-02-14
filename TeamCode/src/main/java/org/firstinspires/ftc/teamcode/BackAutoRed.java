@@ -152,7 +152,7 @@ public class BackAutoRed extends LinearOpMode {
         Shooter.setPower(0.9);
         ShooterAssist.setPower(-0.9);
         drive(350, 350, 350, 350, false);
-        drive(220, -220, 220, -220, false);
+        drive(170, -170, 170, -170, false);
 
         while (opModeIsActive() && timer.seconds() < 2.5) {
             telemetry.addLine("Shooter turning on...");
@@ -161,17 +161,16 @@ public class BackAutoRed extends LinearOpMode {
         Shooter.setPower(0);
         ShooterAssist.setPower(0);
 
-        drive(560, -560, 560, -560, false);
-        drive(-820, 820, 820, -820, false);
-        drive(2000,2000,2000,2000,true);
-        drive(-1850, -1850, -1850, -1850, false);
-        drive(920, -920, -920, 920, false); // turn for shooter second time
-        drive(-540, 540, -540, 540, false);
+        drive(570, -570, 570, -570, false);
+        drive(-870, 870, 870, -870, false);
+        drive(2200,2200,2200,2200,true);
+        drive(-1970, -1970, -1970, -1970, false);
+        drive(900, -900, -900, 900, false); // turn for shooter second time
+        drive(-578, 578, -578, 578, false);
 
         shootThreeBall();
 
-        drive(-250, 250, -250, 250, false);
-        drive(800, 800, 800, 800, false);
+        drive(400, 400, 400, 400, false);
     }
     public void runNineBall() {
         Shooter.setPower(0.9);
@@ -230,9 +229,7 @@ public class BackAutoRed extends LinearOpMode {
         }
 
 
-        nudgeBall(0.1, 0.9);
-        nudgeBall(0.5, 0.9);
-        nudgeBall(2, 1);
+        nudgeBall(4, 1);
         Shooter.setPower(0);
         ShooterAssist.setPower(0);
     }
@@ -249,10 +246,10 @@ public class BackAutoRed extends LinearOpMode {
         backRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
         if (intakeAndTransfer) {
-            frontLeft.setPower(0.7);
-            frontRight.setPower(0.7);
-            backLeft.setPower(0.7);
-            backRight.setPower(0.7);
+            frontLeft.setPower(0.6);
+            frontRight.setPower(0.6);
+            backLeft.setPower(0.6);
+            backRight.setPower(0.6);
         } else {
             frontLeft.setPower(1);
             frontRight.setPower(1);
@@ -272,7 +269,6 @@ public class BackAutoRed extends LinearOpMode {
 
             if (intakeAndTransfer) {
                 Intake.setPower(-1);
-                Transfer.setPower(-1);
             }
         }
         stopRobot();

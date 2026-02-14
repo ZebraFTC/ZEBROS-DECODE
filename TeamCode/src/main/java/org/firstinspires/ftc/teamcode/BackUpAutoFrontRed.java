@@ -158,12 +158,12 @@ public class BackUpAutoFrontRed extends LinearOpMode {
         ShooterAssist.setPower(0);
 
         drive(360, -360, 360, -360, false);
-        drive(675, -675, -675, 675, false);
+        drive(680, -680, -680, 680, false);
 
         drive(1800,1800,1800,1800,true);
-        drive(-1800, -1800, -1800, -1800, false);
+        drive(-1760, -1760, -1760, -1760, false);
         drive(-300, 300, 300, -300, false);
-        drive(-450, 450, -450, 450, false); // turn for shooter second time
+        drive(-445, 445, -445, 445, false); // turn for shooter second time
         drive(400, 400, 400, 400, false);
 
         shootThreeBall();
